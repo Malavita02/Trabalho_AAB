@@ -1,6 +1,6 @@
 # Trabalho_AAB
 
-###Scripts completos:
+Scripts completos:
 * BoyerMoore
 
 
