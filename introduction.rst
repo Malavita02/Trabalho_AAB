@@ -20,4 +20,4 @@ Autores:
 - Carina Gonçalves (pg45466)
 - Ruben Silva (pg44580) 
 - Rute Castro (pg45475)
-- Tiago Silva (pg45476)
+- Tiago Oliveira (pg45476)
