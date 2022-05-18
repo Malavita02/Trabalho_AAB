@@ -1,46 +1,63 @@
 # -*- coding: utf-8 -*-
-class Automata:
+class Bwt:
     """
-    Falta terminar esta igual ao que o prof deu
     """
-    def __init__(self, alphabet, pattern):
-        self.numstates = len(pattern) + 1
-        self.alphabet = alphabet
-        self.transitionTable = {}
-        self.buildTransitionTable(pattern)
+    def get_bwt(self,seq):
+        self.seq = seq
+        self.btw = self.build_bwt(seq)
+        self.bwt_seq, self.sa = self.sufix_array()
+        return self.bwt_seq
 
-    def buildTransitionTable(self, pattern):
-        for q in range(self.numstates):
-            for a in self.alphabet:
-                pass
-        # ...
+    def build_bwt(self, text):
+        perm_ord = sorted([(text[i:] + text[:i], i) for i in range(len(text))])
+        return perm_ord
 
-    def printAutomata(self):
-        print("States: ", self.numstates)
-        print("Alphabet: ", self.alphabet)
-        print("Transition table:")
-        for k in self.transitionTable.keys():
-            print(k[0], ",", k[1], " -> ", self.transitionTable[k])
+    def sufix_array(self):
+        bwt, suffix_array = zip(*[(s[-1], p) for s, p in self.btw])
+        bwt = "".join(bwt)
+        return bwt, suffix_array
 
-    def nextState(self, current, symbol):
-        pass
-    # return ...
+    def dict_bwt(self, bwt):
+        def tabela():
+            D = {}
+            def _add(x):
+                nonlocal D
+                idx = D.get(x, 0)
+                D[x] = idx + 1
+                return x + str(idx)
+            return _add
+        fun = tabela()
+        self.bwt_off = [fun(x) for x in bwt]
+        fun = tabela()
+        self.ord_off = [fun(x) for x in sorted(bwt)]
+        tab = {k: v for k, v in zip(self.bwt_off, self.ord_off)}
+        return tab
 
-    def applySeq(self, seq):
-        q = 0
-        res = [q]
-        # ...
+    def reverse_bwt(self, bwt):
+        tab = self.dict_bwt(bwt)
+        rec = ""
+        x = tab["$0"]
+        while x != "$0":
+            rec += x[0]
+            x = tab[x]
+        self.dict_bwt = tab
+        return rec
+
+    def find_pattern(self, patt):
+        for i in range(len(patt)-1):
+            p = patt[-1-i]
+            l = []
+            for j in range(len(self.ord_off)):
+                if p in self.ord_off[j]: l.append(j)
+            t, b = l[0], l[-1]
+            l = []
+            for j in range(t,b+1):
+                if patt[-2-i] in self.bwt_off[j]: l.append(j)
+            t, b = int(l[0]), int(l[-1])
+        aux = []
+        for j in self.bwt_off[t:b+1]:
+            aux.append(j)
+        res = ""
+        for i in range(len(self.ord_off)):
+            if self.ord_off[i] in aux: res += str(i) + " "
         return res
-
-    def occurencesPattern(self, text):
-        q = 0
-        res = []
-        # ....
-        return res
-
-
-def overlap(s1, s2):
-    maxov = min(len(s1), len(s2))
-    for i in range(maxov, 0, -1):
-        if s1[-i:] == s2[:i]: return i
-    return 0
