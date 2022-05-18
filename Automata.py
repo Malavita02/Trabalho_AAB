@@ -68,7 +68,7 @@ class Automata:
                 res.append(symbolIndex)
         return res
 
-    def overlap(s1, s2):
+    def overlap(s1, s2): #ignorada
         maxov = min(len(s1), len(s2))
         for i in range(maxov, 0, -1):
             if s1[-i:] == s2[:i]: return i
