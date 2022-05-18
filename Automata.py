@@ -1,63 +1,80 @@
 # -*- coding: utf-8 -*-
-class Bwt:
+class Automata:
     """
+    Falta terminar esta igual ao que o prof deu
     """
-    def get_bwt(self,seq):
-        self.seq = seq
-        self.btw = self.build_bwt(seq)
-        self.bwt_seq, self.sa = self.sufix_array()
-        return self.bwt_seq
+    def __init__(self, alphabet, pattern):
+        self.numstates = len(pattern) + 1
+        self.current = 0 # [0, 1, 2, 3, 4, 5]
+        self.pattern = pattern
+        self.detected = False
+        self.alphabet = alphabet
 
-    def build_bwt(self, text):
-        perm_ord = sorted([(text[i:] + text[:i], i) for i in range(len(text))])
-        return perm_ord
+    def printAutomata(self):
+        print("States: ", self.numstates)
+        print("Alphabet: ", self.alphabet)
+        print("Pattern: ", self.pattern)
+        print("Transition table:")
+        # State + Symbol -> State*
+        for state in range(self.numstates):
+            for symbolIndex in range(len(self.alphabet)):
+                nextState = 0
+                if(state < len(self.pattern) and self.alphabet[symbolIndex] == self.pattern[state]):
+                    nextState = state+1
+                detected = state == self.numstates - 1
+                print(state, " + ", self.alphabet[symbolIndex], " = ", nextState, " detected: ", detected)
 
-    def sufix_array(self):
-        bwt, suffix_array = zip(*[(s[-1], p) for s, p in self.btw])
-        bwt = "".join(bwt)
-        return bwt, suffix_array
+    def nextState(self, symbol):
+        if(symbol == self.pattern[self.current]): # Se simbolo é o próximo no padrão
+            self.current += 1 # Avançar para o próximo estado
+            if(self.current == self.numstates):
+                self.detected = True
+                # P: AABAA
+                # S: AABAABAA
+                # D: FFFFTFFT
+                self.current = patternSubSequence(symbol)
+            else:
+                self.detected = False
+        else: # Caso contrário
+            # Verificar se existe uma subsequência no (padrão detectato até agora+simbolo) que faça parte do padrão
+            self.current = patternSubSequence(symbol)
+            self.detected = False
 
-    def dict_bwt(self, bwt):
-        def tabela():
-            D = {}
-            def _add(x):
-                nonlocal D
-                idx = D.get(x, 0)
-                D[x] = idx + 1
-                return x + str(idx)
-            return _add
-        fun = tabela()
-        self.bwt_off = [fun(x) for x in bwt]
-        fun = tabela()
-        self.ord_off = [fun(x) for x in sorted(bwt)]
-        tab = {k: v for k, v in zip(self.bwt_off, self.ord_off)}
-        return tab
+    def patternSubSequence(self, symbol):
+        # Caso contrário, se o estado atual (string detetada até agora) for substring do padrão,
+        # queremos ir para o estado correspondente ao tamanho dessa substring
+        sequence = self.pattern[0:self.current] + symbol
+        # nextState = overlap(sequence, self.pattern)
+        # Sequence: AABBCAABBCC
+        # Pattern:       AABBA
+        # Percorrer sequence, simbolo a simbolo
+        nextState = 0
+        sequenceStartIndex = 0
+        index = 0
+        while(index < (len(sequence) - sequenceStartIndex)):
+            if(sequence[sequenceStartIndex + index] != self.pattern[index]):
+                sequenceStartIndex += 1
+                index = 0
+            else:
+                index += 1
+        if(sequenceStartIndex < len(sequence)):
+            nextState = sequenceStartIndex
+        return nextState
 
-    def reverse_bwt(self, bwt):
-        tab = self.dict_bwt(bwt)
-        rec = ""
-        x = tab["$0"]
-        while x != "$0":
-            rec += x[0]
-            x = tab[x]
-        self.dict_bwt = tab
-        return rec
-
-    def find_pattern(self, patt):
-        for i in range(len(patt)-1):
-            p = patt[-1-i]
-            l = []
-            for j in range(len(self.ord_off)):
-                if p in self.ord_off[j]: l.append(j)
-            t, b = l[0], l[-1]
-            l = []
-            for j in range(t,b+1):
-                if patt[-2-i] in self.bwt_off[j]: l.append(j)
-            t, b = int(l[0]), int(l[-1])
-        aux = []
-        for j in self.bwt_off[t:b+1]:
-            aux.append(j)
-        res = ""
-        for i in range(len(self.ord_off)):
-            if self.ord_off[i] in aux: res += str(i) + " "
+    def occurencesPattern(self, text):
+        self.current = 0
+        res = []
+        for symbolIndex in range(len(text)):
+            self.nextState(self, text[symbolIndex])
+            if(self.detected == True):
+                res.append(symbolIndex)
         return res
+
+    def overlap(s1, s2):
+        maxov = min(len(s1), len(s2))
+        for i in range(maxov, 0, -1):
+            if s1[-i:] == s2[:i]: return i
+        return 0
+    
+automata = Automata("ABC", "AABB")
+automata.printAutomata()
