@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 class Automata:
-    """
-    Falta terminar esta igual ao que o prof deu
-    """
+    
     def __init__(self, alphabet, pattern):
         self.numstates = len(pattern) + 1
         self.current = 0 # [0, 1, 2, 3, 4, 5]
