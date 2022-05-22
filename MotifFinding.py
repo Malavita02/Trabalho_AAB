@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-@author: miguelrocha
-"""
+# -*- coding: utf-8 -*-"""
+
 
 def createMatZeros(nl, nc):
     res = []
