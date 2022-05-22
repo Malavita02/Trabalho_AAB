@@ -11,8 +11,8 @@ Sumário:
 5. Procura de motifs;
 6. Grafos;
 7. Redes Biológicas;
-8. Grafos- assembly e sequenciação de genomas;
-9. ???
+8. Grafos- assembly e sequenciação de genomas - P1;
+9. Grafos- assembly e sequenciação de genomas - P2;
 
 
 Autores:
