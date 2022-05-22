@@ -2,6 +2,7 @@
 
 Scripts completos:
 * BoyerMoore
+* Grafo (aula 6)
 
 
 Trabalho realizado por:
