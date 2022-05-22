@@ -7,7 +7,7 @@ Sumário:
 1. Boyer-Moore;
 2. Autómatos finitos;
 3. Árvore com os padrões;
-4. Transformações de Burrows-wheeler;
+4. Transformações de Burrows-Wheeler;
 5. Procura de motifs;
 6. Grafos;
 7. Redes Biológicas;
