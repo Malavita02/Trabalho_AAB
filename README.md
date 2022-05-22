@@ -1,6 +1,8 @@
 # Trabalho_AAB
 
 Scripts completos:
+
+* Automata
 * BoyerMoore
 * Grafo (aula 6)
 
