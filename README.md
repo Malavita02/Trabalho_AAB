@@ -6,7 +6,7 @@ Scripts completos:
 * BoyerMoore
 * Grafo (aula 6)
 
-Uniitests:
+Unittests:
 * Grafo (aula 6)
 
 
