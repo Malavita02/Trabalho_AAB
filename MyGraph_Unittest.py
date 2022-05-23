@@ -2,7 +2,7 @@
 
     
 import unittest
-import Grafo
+import MyGraph
 
 class TestGrafo(unittest.TestCase):
     
