@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 class Bwt:
     """
-
+    O objetivo desta class é converter repetições em sequências de símbolos repetidos
     """
     def get_bwt(self,seq):
+        '''
+        Retorna a última coluna da matriz
+
+        :param seq: Sequência
+        :return:
+        '''
         self.seq = seq
         self.btw = self.build_bwt(seq)
         self.bwt_seq, self.sa = self.sufix_array()
