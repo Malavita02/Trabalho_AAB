@@ -8,6 +8,7 @@ Scripts completos:
 
 Unittests:
 * Grafo (aula 6)
+* BoyerMoore
 
 
 Trabalho realizado por:
