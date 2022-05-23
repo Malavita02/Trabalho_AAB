@@ -9,9 +9,11 @@ class BoyerMoore:
             :alphabet: Alfabeto que o padrão pertence (por omissão "ATCG")
             :type alphabet: string
     '''
-    def __init__(self, pattern, alphabet = "ATCG"):
+    def __init__(self, pattern: str, alphabet = "ATCG") -> str:
         self.pattern = pattern
         self.alphabet = alphabet
+        if self.pattern not in alphabet:
+            raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
         self.preprocess()
 
     def preprocess(self):
@@ -46,7 +48,7 @@ class BoyerMoore:
             if i == j:
                 j = self.f[j]
                 
-     def search_pattern(self, text):
+     def search_pattern(self, text:str) -> str:
         '''
             Recebe a sequência ou o texto onde se pertende encontrar o padrão e devolve uma lista com os indices onde se repete o padrão
             Inputs:
