@@ -57,7 +57,7 @@ class MyGraph:
             Retorna o tamanho do grafo através do tamanho dos nodos e das arestas
         '''
         
-        return len(self.get_nodos()), len(self.get_arestas())
+        return len(self.get_nodos()), len(self.get_arcos())
     
 
     def add_nodo(self, v: str):
@@ -352,7 +352,7 @@ class MyGraph:
         
 #### FUNÇÕES AUXILIARES
 
-def is_in_tuple_list(tl: str, val: str):
+def is_in_tuple_list(tl: str, val: str) -> str:
     '''
         Verificar se é tuplo
         
