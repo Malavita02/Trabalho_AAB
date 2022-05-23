@@ -33,34 +33,34 @@ class MyGraph:
          for v in self.graph.keys():
              print(v, " -> ", self.graph[v])
         
-    def get_nodos(self):
+    def get_nodes(self):
         ''' 
             Retorna, numa lista, os nodos que estão no grafo 
         '''
         
         return list(self.graph.keys())
 
-    def get_arcos(self):
+    def get_edges(self):
         '''
             Retorna as arestas (linhas) do grafo como uma lista de tuplos 
             A  lista de tuplos tem 2 argumentos: origem , destino
         '''
         
-        arcos = []
-        for origem in self.graph.keys():
-            for destino in self.graph[origem]:
-                arcos.append((origem, destino))
-        return arcos
+        edges = []
+        for v in self.graph.keys():
+            for d in self.graph[v]:
+                edges.append((v, d))
+        return edges
 
-    def tamanho(self):
+    def length(self):
         ''' 
             Retorna o tamanho do grafo através do tamanho dos nodos e das arestas
         '''
         
-        return len(self.get_nodos()), len(self.get_arcos())
+        return len(self.get_nodes()), len(self.get_edges())
     
 
-    def add_nodo(self, v: str):
+    def add_vertex(self, v: str):
         ''' 
             Adiciona nodo v ao grafo
             
@@ -74,7 +74,7 @@ class MyGraph:
         else:
             self.graph[v] = {}
 
-    def add_arcos(self, v1: str, v2: str, w: int):
+    def add_edge(self, v1: str, v2: str, w: int):
         ''' 
             Adiciona o arco (v1,v2) ao grafo e peso w
             
@@ -95,7 +95,7 @@ class MyGraph:
         
    
 
-    def get_sucessor(self, v: str) -> list:
+    def get_successors(self, v: str) -> list:
         ''' 
             Retorna numa lista o nodo sucessor
             
@@ -105,7 +105,7 @@ class MyGraph:
         '''
         return list(self.graph[v])
 
-    def get_antecessor(self, v: str) -> list:
+    def get_predecessors(self, v: str) -> list:
         ''' 
             Retorna numa lista o nodo antecessor
             
@@ -119,7 +119,7 @@ class MyGraph:
                 res.append(k)
         return res
 
-    def get_adjacente(self, v: str)-> list:
+    def get_adjacents(self, v: str)-> list:
         ''' 
             Retorna na lista anterior os nodos adjacentes
             
@@ -127,15 +127,15 @@ class MyGraph:
             ----------
             v: nodo de partida para procura de adjacentes
         '''
-        suc = self.get_sucessor(v)
-        pred = self.get_antecessor(v)
+        suc = self.get_successors(v)
+        pred = self.get_predecessors(v)
         res = pred
         for p in suc:
             if p not in res: res.append(p)
         return res
 
 
-    def grau_entrada(self, v: str)-> str:
+    def in_degree(self, v: str)-> str:
         ''' 
             Retorna o grau de entrada de um nó: o número de 
             ligações que chegam a esse nó (nº depredecessores)
@@ -145,9 +145,9 @@ class MyGraph:
             v: nodo para o qual é retornado o grau de entrada
     '''
 
-        return len(self.get_antecessor(v))
+        return len(self.get_predecessors(v))
     
-    def grau_saida(self, v: str)-> str:
+    def out_degree(self, v: str)-> str:
         ''' 
             Retorna o grau de saída de um nó:
             o número de ligações que saem desse nó (nº de suvessores)
@@ -160,7 +160,7 @@ class MyGraph:
         return len(self.graph[v])
 
 
-    def grau(self, v: str)-> str:
+    def degree(self, v: str)-> str:
         ''' 
             Retorna o grau do nó v (todos os nós adjacentes)
             
@@ -168,11 +168,11 @@ class MyGraph:
             ----------
             v: nodo para o qual é retornado o grau
         '''
-        return len(self.get_adjacente(v))
+        return len(self.get_adjacents(v))
     
 
     
-    def distancia(self, s: str, d: str)-> int:
+    def distance(self, s: str, d: str)-> int:
         ''' 
             Distância entre dois nós dada pelo comprimento 
             do caminho mais curto entre os mesmos
@@ -185,18 +185,18 @@ class MyGraph:
         if s == d: 
             return 0
         l = [(s, 0)]
-        visitados = [s]
+        visited = [s]
         while len(l) > 0:
-            nodo, dist = l.pop(0)
-            for elem in self.graph[nodo]:
+            node, dist = l.pop(0)
+            for elem in self.graph[node]:
                 if elem == d:
                     return dist + 1
-                elif elem not in visitados:
+                elif elem not in visited:
                     l.append((elem, dist + 1))
-                    visitados.append(elem)
+                    visited.append(elem)
         return None
 
-    def caminho_mais_curto(self, s: str, d: str) -> list:
+    def shortest_path(self, s: str, d: str) -> list:
         '''
             Caminho mais curto entre dois nós caminho onde o comprimento (nº de nós) é o menor 
             entre todos os caminhos possíveis entre eles
@@ -210,18 +210,18 @@ class MyGraph:
         if s == d: 
             return 0 # se o nó for o mesmo não há distância entre eles
         l = [(s, [])]
-        visitados = [s]
+        visited = [s]
         while len(l) > 0:
-            nodo, preds = l.pop(0)
-            for elem in self.graph[nodo]:
+            node, preds = l.pop(0)
+            for elem in self.graph[node]:
                 if elem == d:
-                    return preds + [nodo, elem]
-                elif elem not in visitados:
-                    l.append((elem, preds + [nodo]))
-                    visitados.append(elem)
+                    return preds + [node, elem]
+                elif elem not in visited:
+                    l.append((elem, preds + [node]))
+                    visited.append(elem)
         return None
     
-    def dijkstra(self, origem: str) -> list:
+    def dijkstra(self, orig: str) -> list:
         '''
             Caminho mais curto entre dois nós caminho onde o comprimento (nº de nós) é o menor 
             entre todos os caminhos possíveis entre eles pelo algoritmo Dijkstra
@@ -231,30 +231,30 @@ class MyGraph:
             origem: nodo origem
             
         '''
-        visitados = set()
-        dic_parentes = {}
-        resultado = []
-        custo = defaultdict(lambda: float('inf'))
-        custo[origem] = 0
-        heap.heappush(resultado, (0, origem))
+        visited = set()
+        dic_parents = {}
+        result = []
+        cost= defaultdict(lambda: float('inf'))
+        cost[orig] = 0
+        heap.heappush(result, (0, orig))
         
-        while resultado:
+        while result:
 
-            i , nodo = heap.heappop(resultado)
-            visitados.add(nodo)
+            i , node = heap.heappop(result)
+            visited.add(node)
             
-            for nodo_adjacente, peso in self.graph[nodo].items():
-                if nodo_adjacente in visitados:	continue
+            for adjacent_node, w in self.graph[node].items():
+                if adjacent_node in visited:	continue
                 
-                novo_custo = custo[nodo] + peso
-                if custo[nodo_adjacente] > novo_custo:
-                    dic_parentes[nodo_adjacente] = nodo
-                    custo[nodo_adjacente] = novo_custo
-                    heap.heappush(resultado, (novo_custo, nodo_adjacente))
+                new_cost = cost[node] + w
+                if cost[adjacent_node] > new_cost:
+                    dic_parents[adjacent_node] = node
+                    cost[adjacent_node] = new_cost
+                    heap.heappush(result, (new_cost, adjacent_node))
 
-        return dic_parentes, custo
+        return dic_parents, cost
     
-    def atingiveis_distancia(self, v: str) -> list:
+    def reachable_with_dist(self, v: str) -> list:
         '''
             Retorna uma lista de nodos atingíveis a partir de v
             com a respetiva distância
@@ -266,16 +266,16 @@ class MyGraph:
         res = []
         l = [(v, 0)]
         while len(l) > 0:
-            nodo, dist = l.pop(0)
-            if nodo != v: res.append((nodo, dist))
-            for elem in self.graph[nodo]:
+            node, dist = l.pop(0)
+            if node != v: res.append((node, dist))
+            for elem in self.graph[node]:
                 if not is_in_tuple_list(l, elem) and not is_in_tuple_list(res, elem):
                     l.append((elem, dist + 1))
         return res
 
 
 
-    def atingiveis_bfs(self, v: str)-> list:
+    def reachable_bfs(self, v: str)-> list:
         '''
             Travessia do grafo em largura começando pelo nó origem, explorando todos sucessores e
             os sucessores destes, até todos os nós atingíveis terem sido explorados, para observar os nós atingíveis
@@ -287,14 +287,14 @@ class MyGraph:
         l = [v]
         res = []
         while len(l) > 0:
-            nodo = l.pop(0)
-            if nodo != v: res.append(nodo)
-            for elem in self.graph[nodo]:
-                if elem not in res and elem not in l and elem != nodo:
+            node = l.pop(0)
+            if node != v: res.append(node)
+            for elem in self.graph[node]:
+                if elem not in res and elem not in l and elem != node:
                     l.append(elem)
         return res
 
-    def atingiveis_dfs(self, v:str) -> list:
+    def reachable_dfs(self, v:str) -> list:
         '''
             Travessia do grafo em profundidade começando pelo nó origem, explorando o 1º sucessor, seguido pelo
             1º sucessor deste até não haver mais sucessores e fazer "backtracking",  para observar os nós atingíveis
@@ -306,17 +306,17 @@ class MyGraph:
         l = [v]
         res = []
         while len(l) > 0:
-            nodo = l.pop(0)
-            if nodo != v: res.append(nodo)
+            node = l.pop(0)
+            if node != v: res.append(node)
             s = 0
-            for elem in self.graph[nodo]:
+            for elem in self.graph[node]:
                 if elem not in res and elem not in l:
                     l.insert(s, elem)
                     s += 1
         return res
 
 
-    def nodo_ciclo(self, v: str) -> str:
+    def node_has_cycle(self, v: str) -> str:
         '''
             Ciclo (simples) se não tem vértices ou arcos repetidos
             
@@ -327,24 +327,24 @@ class MyGraph:
         
         l = [v]
         res = False
-        visitados = [v]
+        visited = [v]
         while len(l) > 0:
-            nodo = l.pop(0)
-            for elem in self.graph[nodo]:
+            node = l.pop(0)
+            for elem in self.graph[node]:
                 if elem == v:
                     return True
-                elif elem not in visitados:
+                elif elem not in visited:
                     l.append(elem)
-                    visitados.append(elem)
+                    visited.append(elem)
         return res
 
-    def ciclo(self):
+    def has_cycle(self):
         '''
             Verifica se é ciclo
         '''
         res = False
         for v in self.graph.keys():
-            if self.nodo_ciclo(v): 
+            if self.node_has_cycle(v): 
                 return True
         return res
     
@@ -352,7 +352,7 @@ class MyGraph:
         
 #### FUNÇÕES AUXILIARES
 
-def is_in_tuple_list(tl: str, val: str) -> str:
+def is_in_tuple_list(tl: str, val: str):
     '''
         Verificar se é tuplo
         
@@ -366,7 +366,7 @@ def is_in_tuple_list(tl: str, val: str) -> str:
         if val == x: return True
     return res
 
-def encontrar_caminho(parentes: str, destino : str)-> list:
+def find_path(parents: str, dest : str)-> list:
     '''
         Função auxiliar para encontrar caminho entre nodos
         
@@ -376,14 +376,14 @@ def encontrar_caminho(parentes: str, destino : str)-> list:
         destino: nodo de destino
     '''
     lista = []
-    lista.append(destino)
-    if parentes[destino] in parentes.keys():
-        lista = encontra(parentes,parentes[destino],lista)
+    lista.append(dest)
+    if parents[dest] in parents.keys():
+        lista = find(parents,parents[dest],lista)
     else:
-        lista.append(parentes[destino])
+        lista.append(parents[dest])
     return lista
 
-def encontra(parentes: str, destino : str, lista: list)-> list:
+def find(parents: str, dest : str, lista: list)-> list:
     '''
         Função auxiliar para encontrar caminho entre nodos
         
@@ -393,11 +393,11 @@ def encontra(parentes: str, destino : str, lista: list)-> list:
         destino: nodo de destino
         lista: lista de nodos de destino ao longo do trajeto
     '''
-    lista.append(destino)
-    if parentes[destino] in parentes.keys():
-        lista = encontra(parentes,parentes[destino],lista)
+    lista.append(dest)
+    if parents[dest] in parents.keys():
+        lista = find(parents,parents[dest],lista)
     else:
-        lista.append(parentes[destino])
+        lista.append(parents[dest])
     return lista
 
 
@@ -411,8 +411,22 @@ def test():
     gr = MyGraph()
     gr.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
     gr.print_graph()
+    print('CAMINHO:' , gr.shortest_path('1', '4'))
     print()
-    print('Tamanho (nodos, arcos):',gr.tamanho())
+   
+    x = dic_parentes,custo = gr.dijkstra('1')
+    print('dijkstra:', x)
+    algoritmo = find_path(dic_parentes,'3')
+    algoritmo.reverse()
+    print('Caminho Dijkstra:', algoritmo)
+    print("O custo total deste caminho é: " + str(custo.get('3')))
+    print()
+
+    print('Tamanho (nodos, arcos):',gr.length())
+    
+    
+    print()
+    
 test()
 
 def test1():
@@ -421,8 +435,8 @@ def test1():
     gr = MyGraph()
     gr.create_graph({'1': {'2': 1, '3': 1}, '2': {'4': 1}, '3': {'5': 1}, '4': {}, '5': {}})
     gr.print_graph()
-    print('Nodos', gr.get_nodos())
-    print('Arestas', gr.get_arcos())
+    print('Nodos', gr.get_nodes())
+    print('Arestas', gr.get_edges())
     print()
 test1()
 
@@ -430,72 +444,64 @@ def test2():
     print('------------------TESTE 2---------------------')
     print('Novo grafo depois de adicionar nodos e arcos com tamanho:')
     gr = MyGraph()
-    gr.add_nodo('A')
-    gr.add_nodo('B')
-    gr.add_nodo('C')
-    gr.add_nodo('D')
-    gr.add_arcos('A','B', 7)
-    gr.add_arcos('B','C', 2)
-    gr.add_arcos('C','B', 8)
-    gr.add_arcos('C','D', 12)
-    gr.add_arcos('D','B', 6)
-    gr.add_arcos('D', 'A', 4)
-    gr.add_arcos('B','D', 15)
+    gr.add_vertex('A')  
+    gr.add_vertex('B')
+    gr.add_vertex('C')
+    gr.add_vertex('D')
+    gr.add_edge('A','B', 7)
+    gr.add_edge('B','C', 2)
+    gr.add_edge('C','B', 8)
+    gr.add_edge('C','D', 12)
+    gr.add_edge('D','B', 6)
+    gr.add_edge('D', 'A', 4)
+    gr.add_edge('B','D', 15)
     gr.print_graph()
     print()
-    print('Nodos', gr.get_nodos())
-    print('Arestas', gr.get_arcos())
+    print('Nodos', gr.get_nodes())
+    print('Arestas', gr.get_edges())
     print()
-    print('Caminho mais curto:', gr.caminho_mais_curto('A','C'))
-    print('Distância:',gr.distancia('A','D'))
-    print('É ciclo:' , gr.ciclo())
-    print('Tamanho (nodos, arcos):',gr.tamanho())
+    print('Caminho mais curto:', gr.shortest_path('A','C'))
+    print('Distância:',gr.distance('A','D'))
+    print('É ciclo:' , gr.has_cycle())
+    
     print()
     
     dic_parentes,custo = gr.dijkstra('A')
 
-    algoritmo = encontrar_caminho(dic_parentes,"D")
+    algoritmo = find_path(dic_parentes,"D")
     algoritmo.reverse()
     print('Caminho Dijkstra:', algoritmo)
     print("O custo total deste caminho é: " + str(custo.get("D")))
     print()
 # teste 3    
     analise = 'B' #input do número do nodo a analisar
-    print (f'Vértice sucessor de {analise}:', gr.get_sucessor(analise))
-    print (f'Vértice antecessor: {analise}', gr.get_antecessor(analise))
-    print (f'Vértice adjacente {analise}:', gr.get_adjacente(analise))
-    print (f'Grau de entrada de {analise}:', gr.grau_entrada(analise))
-    print (f'Grau de saída de {analise}:', gr.grau_saida(analise))
-    print (f'Grau do nó {analise}:', gr.grau(analise))
+    print (f'Vértice sucessor de {analise}:', gr.get_successors(analise))
+    print (f'Vértice antecessor: {analise}', gr.get_predecessors(analise))
+    print (f'Vértice adjacente {analise}:', gr.get_adjacents(analise))
+    print (f'Grau de entrada de {analise}:', gr.in_degree(analise))
+    print (f'Grau de saída de {analise}:', gr.out_degree(analise))
+    print (f'Grau do nó {analise}:', gr.degree(analise))
     print()
     print()
 # teste 4    
     v = 'A' # input do nó em análise
-    print(f'Nós atingíveis de {v} em largura (bfs):', gr.atingiveis_bfs(v))
-    print(f'Nós atingíveis de {v} em profundidade (dsf):',gr.atingiveis_dfs(v))
+    print(f'Nós atingíveis de {v} em largura (bfs):', gr.reachable_bfs(v))
+    print(f'Nós atingíveis de {v} em profundidade (dsf):',gr.reachable_dfs(v))
     print()
 # teste 5
-    print('Distância:', gr.distancia('A','D'))
-    print('Distância:', gr.distancia('D','C'))
+    print('Distância:', gr.distance('A','D'))
+    print('Distância:', gr.distance('D','C'))
     print()
 
 
 # teste 7
     a = 'A'
     b = 'C'
-    print(f'Nós atingíveis a partir de {a}:', gr.atingiveis_distancia(a))
-    print(f'Nós atingíveis a partir de {b}: ', gr.atingiveis_distancia(b))
+    print(f'Nós atingíveis a partir de {a}:', gr.reachable_with_dist(a))
+    print(f'Nós atingíveis a partir de {b}: ', gr.reachable_with_dist(b))
     print()
 
  
 test2()  
   
-
-
-
-
-
-
-
-
 
