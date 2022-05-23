@@ -6,6 +6,9 @@ Scripts completos:
 * BoyerMoore
 * Grafo (aula 6)
 
+Uniitests:
+* Grafo (aula 6)
+
 
 Trabalho realizado por:
 - [Carina Gonçalves, PG45466](https://github.com/carinaa9)
