@@ -74,7 +74,7 @@ class MyGraph:
         else:
             self.graph[v] = {}
 
-    def add_edge(self, v1: str, v2: str, w: int):
+    def add_edge(self, v1: str, v2: str,  w : int = None):
         ''' 
             Adiciona o arco (v1,v2) ao grafo e peso w
             
