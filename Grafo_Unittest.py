@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon May 23 14:47:49 2022
 
-@author: carin
-"""
-################## FUNCIONAM
 
-    
 import unittest
 import Grafo
 
@@ -26,18 +20,8 @@ class TestGrafo(unittest.TestCase):
         D1.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
         d1 = D1.distancia('1','3')
         self.assertEqual(d1, 2 , 'Resultado diferente do suposto')
-
-    def test_dijkstra(self):
     
-        E1=Grafo.MyGraph()
-        E1.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
-        dic_parentes,custo = E1.dijkstra('1')
-        e1 = E1.encontrar_caminho(dic_parentes,'3')
-        e1.reverse()
     
-        self.assertEqual(e1, ['1', '2', '3'], 'Resultado diferente do suposto')
-    
-
     def test_get_nodos(self):
         
         GN1=Grafo.MyGraph()
@@ -74,7 +58,6 @@ class TestGrafo(unittest.TestCase):
         GA1.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
         ga1 = GA1.get_antecessor('3')
         self.assertEqual(ga1, ['2'], 'Resultado diferente do suposto')
-        
         
         
     def test_grau_adjacente(self):
@@ -131,9 +114,6 @@ class TestGrafo(unittest.TestCase):
         AD1.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
         ad1 = AD1.atingiveis_distancia('1')
         self.assertEqual(ad1, [('2', 1), ('3', 2), ('4', 3)] , 'Resultado diferente do suposto')
-        
-
-
 
     
 if __name__ == "__main__":
