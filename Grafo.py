@@ -412,6 +412,7 @@ def test():
     gr.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
     gr.print_graph()
     print()
+    print('Tamanho (nodos, arcos):',gr.tamanho())
 test()
 
 def test1():
@@ -430,7 +431,6 @@ def test2():
     print('Novo grafo depois de adicionar nodos e arcos com tamanho:')
     gr = MyGraph()
     gr.add_nodo('A')
-    
     gr.add_nodo('B')
     gr.add_nodo('C')
     gr.add_nodo('D')
@@ -449,7 +449,7 @@ def test2():
     print('Caminho mais curto:', gr.caminho_mais_curto('A','C'))
     print('Distância:',gr.distancia('A','D'))
     print('É ciclo:' , gr.ciclo())
-    
+    print('Tamanho (nodos, arcos):',gr.tamanho())
     print()
     
     dic_parentes,custo = gr.dijkstra('A')
