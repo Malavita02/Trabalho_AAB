@@ -20,7 +20,15 @@ class TestGrafo(unittest.TestCase):
         D1.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
         d1 = D1.distancia('1','3')
         self.assertEqual(d1, 2 , 'Resultado diferente do suposto')
-    
+        
+        
+    def test_tamanho(self):
+        
+        T1=Grafo.MyGraph()
+        T1.create_graph({'1': {'2': 1}, '2': {'3': 1}, '3': {'2': 1, '4': 1}, '4': {'2':1}})
+        t1 = T1.tamanho()
+        self.assertEqual(t1, (4, 5) , 'Resultado diferente do suposto')
+   
     
     def test_get_nodos(self):
         
