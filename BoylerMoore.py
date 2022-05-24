@@ -13,10 +13,14 @@ class BoyerMoore:
         self.pattern = pattern
         self.alphabet = alphabet
         self.preprocess()
+        self.check_pattern()
         
     def check_pattern(self):
-        if self.pattern not in self.alphabet:
-            raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
+        if type(self.pattern) != str:
+            raise TypeError("Esse padrão não é uma string.")
+        for p in self.pattern:
+            if p not in self.alphabet:
+                raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
 
     def preprocess(self):
         self.process_bad_character_rule()
