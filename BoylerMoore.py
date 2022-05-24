@@ -12,9 +12,11 @@ class BoyerMoore:
     def __init__(self, pattern: str, alphabet = "ATCG") -> str:
         self.pattern = pattern
         self.alphabet = alphabet
-        if self.pattern not in alphabet:
-            raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
         self.preprocess()
+        
+    def check_pattern(self):
+        if self.pattern not in self.alphabet:
+            raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
 
     def preprocess(self):
         self.process_bad_character_rule()
