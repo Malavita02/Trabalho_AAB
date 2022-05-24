@@ -27,6 +27,8 @@ class Sufix_trie:
         Esta função procura o nó correspondente ao padrão e se não existir retorna falso
         Inputs:
             :seq: Padrão da sequência
+        Returns:
+                :return t["$"]: Devolve a posição do nó
         '''
         t = self.trie
         for x in seq:
