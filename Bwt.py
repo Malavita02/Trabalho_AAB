@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
 class Bwt:
     """
-    O objetivo desta class é converter repetições (padrões de vários tamanhos)  em sequências de símbolos repetidos
+        O objetivo desta class é converter repetições em sequências de símbolos repetidos
     """
-    def get_bwt(self,seq):
-        '''
-        Retorna a última coluna da matriz
-        Inputs:
-            seq: Sequência
-        Outputs:
-            return: Retorna a sequência bwt
-        '''
+    def __init__(self, seq):
         self.seq = seq
+        self.check_seqs()
         self.btw = self.build_bwt(seq)
         self.bwt_seq, self.sa = self.sufix_array()
+
+    def check_seqs(self):
+        if type(self.seq) != str:
+            raise TypeError("Estas sequencias não são strings.")
+
+    def get_bwt(self):
+        '''
+            Retorna a última coluna da matriz
+            :param seq: Sequência
+            :return self.bwt_seq: Retorna a sequencia BWT
+        '''
         return self.bwt_seq
 
     def build_bwt(self, text):
@@ -65,7 +70,15 @@ class Bwt:
         aux = []
         for j in self.bwt_off[t:b+1]:
             aux.append(j)
-        res = ""
+        res = []
         for i in range(len(self.ord_off)):
-            if self.ord_off[i] in aux: res += str(i) + " "
+            if self.ord_off[i] in aux: res.append(i)
         return res
+
+
+bwt = Bwt("TAGACAGAGA$")
+get_bwt = bwt.get_bwt()
+reverse = bwt.reverse_bwt("ACG$GTAAAAC")
+print(get_bwt)
+print(reverse)
+print(bwt.find_pattern("AGA"))
