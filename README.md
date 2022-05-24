@@ -5,12 +5,14 @@ Scripts completos:
 * Automata
 * BoyerMoore
 * Trie
+* BWT (falta so acabar comentarios)
 * Grafo (aula 6)
 
 Unittests:
 * Grafo (aula 6)
 * BoyerMoore
 * Trie
+* BWT
 
 
 Trabalho realizado por:
