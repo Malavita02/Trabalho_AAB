@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 class Bwt:
     """
-    O objetivo desta class é converter repetições em sequências de símbolos repetidos
+    O objetivo desta class é converter repetições (padrões de vários tamanhos)  em sequências de símbolos repetidos
     """
     def get_bwt(self,seq):
         '''
