@@ -10,6 +10,6 @@ class TestBoyerMoore(unittest.TestCase):
 
     def test_types(self):
         bm = BoyerMoore("AGACG", "ACTG")
-        self.assertRaises(TypeError, bm.__innit__, "phge")
+        self.assertRaises(TypeError, bm, "phge")
 
 
