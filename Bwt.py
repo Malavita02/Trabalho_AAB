@@ -8,7 +8,7 @@ class Bwt:
         Retorna a última coluna da matriz
 
         :param seq: Sequência
-        :return:
+        :return: Retorna a sequência bwt
         '''
         self.seq = seq
         self.btw = self.build_bwt(seq)
