@@ -4,11 +4,13 @@ Scripts completos:
 
 * Automata
 * BoyerMoore
+* Trie
 * Grafo (aula 6)
 
 Unittests:
 * Grafo (aula 6)
 * BoyerMoore
+* Trie
 
 
 Trabalho realizado por:
