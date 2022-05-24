@@ -24,7 +24,7 @@ class Sufix_trie:
 
     def matches(self, seq):
         '''
-        Esta função procura o grau do nodo e se não existir retorna falso
+        Esta função procura o nó correspondente ao padrão e se não existir retorna falso
         Inputs:
             :seq: Padrão da sequência
         '''
