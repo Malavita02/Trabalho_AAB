@@ -28,7 +28,7 @@ class Sufix_trie:
         Inputs:
             :seq: Padrão da sequência
         Returns:
-                :return t["$"]: Devolve a posição do nó
+            :return t["$"]: Devolve a posição do nó
         '''
         t = self.trie
         for x in seq:
