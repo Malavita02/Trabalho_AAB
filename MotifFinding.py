@@ -328,9 +328,7 @@ class MySeq:
 
 
 class MotifFinding:
-    """
-    Falta fazer a função gibbs
-    """
+    
     def __init__(self, size=8, seqs=None):
         self.motifSize = size
         if (seqs != None):
