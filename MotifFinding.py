@@ -469,8 +469,8 @@ class MotifFinding:
 
     # Consensus (heuristic)
 
-    def heuristicConsensus(self):
-        seqs = [self.seqs[0], self.seqs[1]]
+     def heuristicConsensus(self):
+        seqs, resto = [self.seqs[0],self.seqs[1]], self.seqs[2:]
         melhorScore = -1
         res = []
         s = [0] * len(seqs)
@@ -480,17 +480,26 @@ class MotifFinding:
                 melhorScore = sc
                 res = s
             s = self.nextSol(s)
-        s1, s2 = res[0], res[1]
+        for i in range(len(resto)):
+            aux = res
+            melhorScore = -1
+            for j in range(len(resto[i])-self.motifSize):
+                aux.append(j)
+                sc = self.score(aux)
+                if (sc > melhorScore):
+                    melhorScore = sc
+                    best_i = j
+                aux.pop()
+            res.append(best_i)
         return res
 
 
     # Consensus (Stochastic)
 
-    def heuristicStochastic(self):
-        from random import randint
+     def heuristicStochastic(self):
         best_Score_list = []
         for x in range(100):
-            pos_iniciais = [randint(0, self.seqSize(n) - self.motifSize) for n in range(len(self.seqs))]
+            pos_iniciais = [randint(0, self.seqSize(n)-self.motifSize) for n in range(len(self.seqs))]
             motif = self.createMotifFromIndexes(pos_iniciais)
             motif.createPWM()
             score = self.scoreMult(pos_iniciais)
@@ -504,14 +513,32 @@ class MotifFinding:
                 motif = self.createMotifFromIndexes(pos_iniciais)
                 motif.createPWM()
             best_Score_list.append(new_score)
-        return max(best_Score_list)
+
+        return pos_iniciais
 
     # Gibbs sampling
 
-    def gibbs(self):
-        from random import randint
-        # ...
-        return None
+    def gibbs(self, iter = 1000):
+        pos_iniciais = [randint(0, self.seqSize(n)-self.motifSize) for n in range(len(self.seqs))]
+        score = self.scoreMult(pos_iniciais)
+        new_score = score + 0.000001
+        while score < new_score:
+            score = new_score
+            for x in range(iter):
+                seqi = randint(0, len(self.seqs)-1)
+                pos_iniciais.remove(pos_iniciais[seqi])
+                seq_removed = self.seqs.pop(seqi)
+                motif = self.createMotifFromIndexes(pos_iniciais)
+                motif.createPWM()
+                self.seqs.insert(seqi, seq_removed)
+                probs = motif.probAllPositions(self.seqs[seqi])
+                irolette = self.roulette(probs)
+                pos_iniciais.insert(seqi, irolette)
+                for_score = self.scoreMult(pos_iniciais)
+                if for_score > new_score:
+                    new_score = for_score
+        return pos_iniciais
+
 
     def roulette(self, f):
         from random import random
