@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 class Automata:
+    '''
+    Os Autómatos processam uma sequência de símbolos da esquerda para a direita.
+    Este pode ser usado para procurar ocorrências do padrão usado para o construir.
+    '''
     
     def __init__(self, alphabet, pattern):
         self.numstates = len(pattern) + 1
