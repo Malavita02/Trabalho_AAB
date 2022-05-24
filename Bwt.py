@@ -6,9 +6,10 @@ class Bwt:
     def get_bwt(self,seq):
         '''
         Retorna a última coluna da matriz
-
-        :param seq: Sequência
-        :return: Retorna a sequência bwt
+        Inputs:
+            seq: Sequência
+        Outputs:
+            return: Retorna a sequência bwt
         '''
         self.seq = seq
         self.btw = self.build_bwt(seq)
