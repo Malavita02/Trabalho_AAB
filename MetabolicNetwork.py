@@ -87,8 +87,9 @@ class MetabolicNetwork (MyGraph):
     def convert_metabolite_net(self, gmr, tipo):
         '''
         Cria rede de metabolitos e reações
-        
-        :param gmr: Rede Metabólica "metabolite-reaction"
+        Inputs:
+            gmr: Rede Metabólica "metabolite-reaction"
+            tipo: Tipo de nó (reaction ou metabolite)
         '''
         for metabolite in gmr.node_types[tipo]: #Obtém todos os metabolitos
             self.add_vertex(metabolite) #Adiciona o metabolito á rede
@@ -102,8 +103,10 @@ class MetabolicNetwork (MyGraph):
     def active_reactions(self, substrates: list):
         """
         Determina todas as reações ativas dado uma lista de metabolitos
-        
-        :param substrates: Lista de metabolitos existentes
+        Inputs:
+            substrates: Lista de metabolitos existentes
+        Outputs:
+            active_reactions: Devolve a lista com as reações ativas
         """
         active_reactions = [] #Criamos a lista "active_reactions" para adicionar as reações ativas
         for reaction in self.node_types["reaction"]: #Obtém todas as reações
@@ -115,8 +118,8 @@ class MetabolicNetwork (MyGraph):
     def produced_metabolites(self, active_reactions: list):
         """
         Determina os metabolitos que podem ser produzidos dada uma lista de reações ativas
-        
-        :param active_reactions: Lista de Reações Ativas
+        Inputs:
+            active_reactions: Lista de Reações Ativas
         """
         produced_metabolites = [] #Criamos a lista "produced_metabolites" para adicionar os metabolitos
         for reactions in active_reactions: #Percorremos a lista de reações ativas
@@ -126,8 +129,10 @@ class MetabolicNetwork (MyGraph):
     def final_metabolites(self, initial_metabolites: list):
         """
         Determina todos os metabolitos finais que poderão ser produzidos dada uma lista de metabolitos iniciais
-        
-        :param initial_metabolites: Lista de Metabolitos Iniciais
+        Inputs:
+            initial_metabolites: Lista de Metabolitos Iniciais
+        Outputs:
+            final_metabolites: Devolve a lista dos metabolitos finais
         """
         final_metabolites = []
         metabolites = initial_metabolites
