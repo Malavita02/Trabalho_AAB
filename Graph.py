@@ -1,35 +1,5 @@
 # -*- coding: utf-8 -*-
 
-'''
-Definição de grafo
-
-Um grafo G=(V,E) é uma estrutura matemática composta por um conjunto V de vértices ou nós e um conjunto E de pares de nós, designados por ramos, conexões, ligações ou arcos, cada um ligando dois nós.
-Estes arcos podem ter uma orientação (pares ordenados) ou não.
-Os grafos ordenados têm, portanto, ligações com sentido definido, enquanto que os grafos não orientados têm arcos sem qualquer sentido definido.
-Os grafos pesados têm valores associados aos seus arcos.
-Podem ser representados computacionalmente por matrizes ou listas de adjacência.
-
-Matrizes de adjacência
-
-As linhas correspondem aos nós origem das ligações.
-As colunas correspondem aos nós destino.
-Se existe ligação entre nó i e j, então o valor na matriz (M[i][j]) será 1; caso contrário será 0.
-Em grafos não orientados, a matriz é simátrica podendo apenas representar-se uma matriz triangular.
-No caso de grafos pesados, os pesos nas ligações podem ser representados como valores na matriz.
-
-Listas de adjacência
-
-Apenas se representam as ligações existentes; para cada nó i temos uma lista com arcos originados em i.
-Se o grafo é não orientado, poderá haver informação redundante representando-se ambos os sentidos da ligação.
-Esta representação pode ser adaptada representando-se cada nó como um objeto e as ligações como listas de referência a objestos desta classe.
-
-
-
-
-'''
-
-
-
 from collections import defaultdict
 import heapq as heap
 
