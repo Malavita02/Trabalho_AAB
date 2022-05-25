@@ -99,12 +99,67 @@ class TestGrafo(unittest.TestCase):
         
         AD1=MyGraph.MyGraph({1: [2], 2: [3], 3: [2, 4], 4: [2]})
         ad1 = AD1.reachable_with_dist(1)
-        self.assertEqual(ad1,[2, 3, 4] , 'Resultado diferente do suposto')
+        self.assertEqual(ad1, [(2, 1), (3, 2), (4, 3)] , 'Resultado diferente do suposto')
+
+
+    def test_all_degrees(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.all_degrees()
+        self.assertEqual(a1, {1: 1, 2: 3, 3: 2, 4: 2}, 'Resultado diferente do suposto')
+        
+    def test_highest_degrees(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.highest_degrees()
+        self.assertEqual(a1, [2, 3, 4, 1], 'Resultado diferente do suposto')
+    
+    def test_mean_degree(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.mean_degree()
+        self.assertEqual(a1, 2.0, 'Resultado diferente do suposto')
+        
+    def test_prob_degree(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.prob_degree()
+        self.assertEqual(a1, {1: 0.25, 3: 0.25, 2: 0.5}, 'Resultado diferente do suposto')
+        
+    def test_mean_distances(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.mean_distances()
+        self.assertEqual(a1, (1.5555555555555556, 0.75), 'Resultado diferente do suposto')
+     
+    def test_clustering_coef(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.clustering_coef(2)
+        self.assertEqual(a1, 0.3333333333333333 , 'Resultado diferente do suposto')
+        
+    def test_all_clustering_coefs(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.all_clustering_coefs()
+        self.assertEqual(a1, {1: 0.0, 2: 0.3333333333333333, 3: 1.0, 4: 1.0} , 'Resultado diferente do suposto')
+    
+    def test_mean_clustering_coef(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.mean_clustering_coef()
+        self.assertEqual(a1, 0.5833333333333333 , 'Resultado diferente do suposto')
+        
+    def test_mean_clustering_perdegree(self):
+        
+        A1=MyGraph.MyGraph({1:[2], 2:[3], 3:[2,4], 4:[2]})
+        a1 = A1.mean_clustering_perdegree()
+        self.assertEqual(a1,{1: 0.0, 3: 0.3333333333333333, 2: 1.0} , 'Resultado diferente do suposto')
         
 
 
+    
 
     
 if __name__ == "__main__":
     unittest.main()
-    
