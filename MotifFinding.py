@@ -516,26 +516,27 @@ class MotifFinding:
 
     # Gibbs sampling
 
-    def gibbs(self, iter = 1000):
-        pos_iniciais = [randint(0, self.seqSize(n)-self.motifSize) for n in range(len(self.seqs))]
-        score = self.scoreMult(pos_iniciais)
+   def gibbs(self, iter = 1000):
+        pos_atuais = [random.randint(0, self.seqSize(n)-self.motifSize) for n in range(len(self.seqs))]
+        score = self.scoreMult(pos_atuais)
         new_score = score + 0.000001
         while score < new_score:
             score = new_score
             for x in range(iter):
-                seqi = randint(0, len(self.seqs)-1)
-                pos_iniciais.remove(pos_iniciais[seqi])
+                seqi = random.randint(0, len(self.seqs)-1)
+                pos_atuais.pop(seqi)
                 seq_removed = self.seqs.pop(seqi)
-                motif = self.createMotifFromIndexes(pos_iniciais)
+                motif = self.createMotifFromIndexes(pos_atuais)
                 motif.createPWM()
                 self.seqs.insert(seqi, seq_removed)
                 probs = motif.probAllPositions(self.seqs[seqi])
                 irolette = self.roulette(probs)
-                pos_iniciais.insert(seqi, irolette)
-                for_score = self.scoreMult(pos_iniciais)
+                pos_atuais.insert(seqi, irolette)
+                for_score = self.scoreMult(pos_atuais)
                 if for_score > new_score:
                     new_score = for_score
-        return pos_iniciais
+
+        return pos_atuais
 
 
     def roulette(self, f):
