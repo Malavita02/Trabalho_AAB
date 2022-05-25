@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-"""
 
-
+# APAGAR!!!!  IGUAL AOS FICHEIROS AE.... 
 def createMatZeros(nl, nc):
     res = []
     for i in range(0, nl):
