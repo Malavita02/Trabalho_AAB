@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-@author: miguelrocha
 """
 
 def createMatZeros (nl, nc):
