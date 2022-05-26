@@ -42,11 +42,12 @@ class Sufix_trie:
 
     def matches(self, seq):
         '''
-        Esta função procura o nó correspondente ao padrão e se não existir retorna falso
+        Esta função procura o nó correspondente ao padrão e se não existir retorna falso, se existir retorna uma lista com is índices
         Inputs:
             :seq: Padrão da sequência
         Returns:
-            :return t["$"]: Devolve a posição do nó
+            :return: Devolve a posição do nó
+            :rtype list: list
         '''
         t = self.trie
         list = []
