@@ -5,6 +5,7 @@ Scripts completos:
 * Automata
 * BoyerMoore
 * Trie
+* SufixTrie
 * BWT (falta so acabar comentarios)
 * Grafo (aula 6)
 * MotifFinding
@@ -13,6 +14,7 @@ Unittests:
 * Grafo (aula 6)
 * BoyerMoore
 * Trie
+* SufixTrie
 * BWT
 * MotifFinding
 
