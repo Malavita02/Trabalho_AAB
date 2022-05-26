@@ -50,9 +50,9 @@ class MyGraph:
         ''' 
            Adiciona nodo v ao grafo
            
-           Parameters
-           ----------
-           v: nodo adicionado
+           Inputs:
+                :v: nodo adicionado
+                :type text: string
        '''
        
         if v not in self.graph.keys():
@@ -61,11 +61,13 @@ class MyGraph:
     def add_edge(self, v1, v2):
         ''' 
             Adiciona o arco (v1,v2) ao grafo e peso w
-            
-            Parameters
-            ----------
-            v1: arco adicionado
-            v2: arco adicionado
+            Inputs:
+                :v1: arco adicionado
+                :type v1: string
+                :v2: arco adicionado
+                :type v2: string
+                :w: custo associado
+                :type w: int
         '''
         if v1 not in self.graph.keys():
             self.add_vertex(v1)
@@ -80,9 +82,9 @@ class MyGraph:
         ''' 
             Retorna numa lista o nodo sucessor
             
-            Parameters
-            ----------
-            v: nodo de partida para procura do sucessor
+           Inputs:
+                :v: nodo de partida para procura do sucessor
+                :type v: str
         '''
         return list(self.graph[v])
 
@@ -90,9 +92,10 @@ class MyGraph:
         ''' 
             Retorna numa lista o nodo antecessor
             
-            Parameters
-            ----------
-            v: nodo de partida para procura do antecessor
+            Inputs:
+                :v: nodo de partida para procura do antecessor
+                :type v: str
+            
         '''
         res = []
         for k in self.graph.keys():
@@ -104,9 +107,10 @@ class MyGraph:
         ''' 
             Retorna na lista anterior os nodos adjacentes
             
-            Parameters
-            ----------
-            v: nodo de partida para procura de adjacentes
+            Inputs:
+                :v: nodo de partida para procura de adjacentes
+                :type v: str
+           
         '''
         suc = self.get_successors(v)
         pred = self.get_predecessors(v)
@@ -121,9 +125,9 @@ class MyGraph:
             Retorna o grau de entrada de um nó: o número de 
             ligações que chegam a esse nó (nº depredecessores)
             
-            Parameters
-            ----------
-            v: nodo para o qual é retornado o grau de entrada
+            Inputs:
+                :v: nodo para o qual é retornado o grau de entrada
+                :type v: str
     '''
 
         return len(self.get_predecessors(v))
@@ -132,10 +136,10 @@ class MyGraph:
         ''' 
             Retorna o grau de saída de um nó:
             o número de ligações que saem desse nó (nº de suvessores)
+            Inputs:
+                :v: nodo para o qual é retornado o grau de saída
+                :type v: str
             
-            Parameters
-            ----------
-            v: nodo para o qual é retornado o grau de saída
         '''
         
         return len(self.graph[v])
@@ -144,10 +148,10 @@ class MyGraph:
     def degree(self, v: str)-> str:
         ''' 
             Retorna o grau do nó v (todos os nós adjacentes)
+            Inputs:
+                :v: nodo para o qual é retornado o grau
+                :type v: str
             
-            Parameters
-            ----------
-            v: nodo para o qual é retornado o grau
         '''
         return len(self.get_adjacents(v))
     
@@ -155,9 +159,9 @@ class MyGraph:
     def all_degrees(self, deg_type="inout") -> dict:
         ''' 
             Calcula o grau (de um determinado tipo) para todos os nós.
-            Parameters
-            ----------
-            deg_type: pode ser "in", "out" ou "inout"
+            Inputs: 
+                :deg_type: pode ser "in", "out" ou "inout"
+                :type deg_type: in, out, inout
         '''
         degs = {}
         for v in self.graph.keys():
@@ -175,11 +179,13 @@ class MyGraph:
     def highest_degrees(self, all_deg=None, deg_type="inout", top: str =10)-> list:
         ''' 
             Calcula o grau mais elevado.
-            Parameters
-            ----------
-            deg_type: pode ser "in", "out" ou "inout"
-            all_deg: todos os graus
-            top: str do top 10 dos maiores
+            Inputs: 
+                :deg_type: pode ser "in", "out" ou "inout"
+                :type deg_type: in, out, inout
+                :all_deg: todos os graus
+                :type all_deg: str
+                :top: str do top 10 dos maiores
+                :type top: str
         '''
         if all_deg is None:
             all_deg = self.all_degrees(deg_type)
@@ -191,9 +197,9 @@ class MyGraph:
     def mean_degree(self, deg_type="inout")-> str:
         ''' 
             Calcula o grau médio
-            Parameters
-            ----------
-            deg_type: pode ser "in", "out" ou "inout"
+            Inputs: 
+                :deg_type: pode ser "in", "out" ou "inout"
+                :type deg_type: in, out, inout
         '''
         degs = self.all_degrees(deg_type)
         return sum(degs.values()) / float(len(degs))
@@ -202,9 +208,9 @@ class MyGraph:
     def prob_degree(self, deg_type="inout"):
         ''' 
             Calcula a probabilidade do grau
-            Parameters
-            ----------
-            deg_type: pode ser "in", "out" ou "inout"
+            Inputs: 
+                :deg_type: pode ser "in", "out" ou "inout"
+                :type deg_type: in, out, inout
         '''
         degs = self.all_degrees(deg_type)
         res = {}
@@ -226,10 +232,14 @@ class MyGraph:
             Distância entre dois nós dada pelo comprimento 
             do caminho mais curto entre os mesmos
             
-            Parameters
-            ----------
-            s: nodo origem
-            d: nodo destino
+            Inputs: 
+                :s: nodo origem
+                :type s: string
+                :d: nodo destino
+                :type d: string
+            Returns:
+                :return int: distância para chegar a outro nodo
+                :rtype int: int
         '''
         if s == d: 
             return 0
@@ -250,9 +260,15 @@ class MyGraph:
         '''
             Caminho mais curto entre dois nós caminho onde o comprimento (nº de nós) é o menor 
             entre todos os caminhos possíveis entre eles
-            
-            Parameters
-            ----------
+            Inputs:
+                :s: nodo origem
+                :type s: str
+                :d: nodo destino
+                :type d: str
+            Returns:
+                :list: lista do caminho mais curto 
+                :type list: list
+
             s: nodo origem
             d: nodo destino
         '''
@@ -276,8 +292,7 @@ class MyGraph:
     def mean_distances(self):
         ''' 
             Calcula a distância média
-            Parameters
-            ----------
+
         '''
         tot = 0
         num_reachable = 0
@@ -296,10 +311,12 @@ class MyGraph:
         '''
             Retorna uma lista de nodos atingíveis a partir de v
             com a respetiva distância
-            
-            Parameters
-            ----------
-            v: nodo de partida
+            Inputs:
+                :v: nodo de partida
+                :type v: str
+            Returns:
+                :res: lista dos nós por onde fez a travessia
+                : type res: list
         '''
         res = []
         l = [(v, 0)]
@@ -317,9 +334,12 @@ class MyGraph:
         '''
             Travessia do grafo em largura começando pelo nó origem, explorando todos sucessores e
             os sucessores destes, até todos os nós atingíveis terem sido explorados, para observar os nós atingíveis
-            Parameters
-            ----------
-            v: nodo de partida
+            Inputs:
+                :v: nodo de partida
+                :type v: str
+            Returns:
+                :res: lista dos nós por onde fez a travessia
+                : type res: list
         '''
         l = [v]
         res = []
@@ -335,9 +355,9 @@ class MyGraph:
         '''
             Travessia do grafo em profundidade começando pelo nó origem, explorando o 1º sucessor, seguido pelo
             1º sucessor deste até não haver mais sucessores e fazer "backtracking",  para observar os nós atingíveis
-            Parameters
-            ----------
-            v: nodo de partida
+            Inputs:
+                :v: nodo de partida
+                :type v: str
         '''
         l = [v]
         res = []
@@ -356,9 +376,9 @@ class MyGraph:
         '''
             Ciclo (simples) se não tem vértices ou arcos repetidos
             
-            Parameters
-            ----------
-            v: nodo de origem e destino
+           Inputs:
+                :v: nodo de origem e destino
+                :type v: str
         '''
         
         l = [v]
@@ -390,9 +410,9 @@ class MyGraph:
         '''
            Coeficientes do Clustering
             
-            Parameters
-            ----------
-            v: nodo 
+           Inputs:
+                :v: nodo 
+                :type v: str
         '''
         adjs = self.get_adjacents(v)
         if len(adjs) <= 1: return 0.0
@@ -407,9 +427,7 @@ class MyGraph:
     def all_clustering_coefs(self)-> dict:
         '''
             Calcula todos os coeficientes
-            
-            Parameters
-            ----------
+
         
         '''
         ccs = {}
@@ -420,9 +438,7 @@ class MyGraph:
     def mean_clustering_coef(self) -> str:
         '''
             Média global dos coeficientes na rede
-            
-            Parameters
-            ----------
+   
           
         '''
         ccs = self.all_clustering_coefs()
@@ -431,9 +447,10 @@ class MyGraph:
     def mean_clustering_perdegree(self, deg_type="inout"):
         '''
             Calcula valores para C(k) para todos os nós
-            Parameters
-            ----------
-            deg_type: pode ser "in", "out" ou "inout"
+            Inputs: 
+                :deg_type: pode ser "in", "out" ou "inout"
+                :type deg_type: in, out, inout
+
         '''
         degs = self.all_degrees(deg_type)
         ccs = self.all_clustering_coefs()
@@ -456,9 +473,9 @@ class MyGraph:
         '''
             Verifica se o caminho é válido
             
-            Parameters
-            ----------
-            p: caminho
+            Inputs: 
+                :p: caminho
+                :type p: string
         '''
         if p[0] not in self.graph.keys(): return False
         for i in range(1, len(p)):
@@ -470,13 +487,16 @@ class MyGraph:
         '''
             Verifica se o caminho é Hamiltoniano
             
-            Parameters
-            ----------
-            p: caminho
+            Inputs: 
+                :p: caminho
+                :type p: string
+
         '''
-        if not self.check_if_valid_path(p): return False
+        if not self.check_if_valid_path(p): 
+            return False
         to_visit = list(self.get_nodes())
-        if len(p) != len(to_visit): return False
+        if len(p) != len(to_visit): 
+            return False
         for i in range(len(p)):
             if p[i] in to_visit:
                 to_visit.remove(p[i])
@@ -490,10 +510,6 @@ class MyGraph:
     def search_hamiltonian_path(self):
         '''
             Procura caminhos Hamiltonianos
-            
-            Parameters
-            ----------
-            p: caminho
         '''
         for ke in self.graph.keys():
             p = self.search_hamiltonian_path_from_node(ke)
@@ -504,7 +520,13 @@ class MyGraph:
     def search_hamiltonian_path_from_node(self, start: str)-> list:
         '''
             Procura exaustiva pelo caminho Hamiltoniano
-            
+            Inputs: 
+                :start: nodo origem
+                :type start: string
+              
+            Returns:
+                :return list: caminho hamiltoniano
+                :rtype list: list
             Parameters
             ----------
             start: nodo origem
@@ -535,9 +557,7 @@ class MyGraph:
     def eulerian_cycle(self)->list:
         '''
             Implementa o Ciclo Euleriano
-            
-            Parameters
-            ----------
+
         '''
         if not self.is_connected() or not self.check_balanced_graph(): return None
         edges_visit = list(self.get_edges())
@@ -571,18 +591,18 @@ class MyGraph:
         '''
             Verifica se o nodo é balanceado
             
-            Parameters
-            ----------
-            start: nodo origem
+            Inputs: 
+                :node: nodo origem
+                :type node: string
+
+          
         '''
         return self.in_degree(node) == self.out_degree(node)
 
     def check_balanced_graph(self)-> str:
         '''
             Verifica se o grafo é balanceado
-            
-            Parameters
-            ----------
+
         '''
         for n in self.graph.keys():
             if not self.check_balanced_node(n): return False
@@ -591,9 +611,7 @@ class MyGraph:
     def check_nearly_balanced_graph(self)-> str:
         '''
             Verifica se o grafo é semibalanceado
-            
-            Parameters
-            ----------
+
            
         '''
         res = None, None
@@ -613,9 +631,7 @@ class MyGraph:
     def is_connected(self)-> str:
         '''
             Verifica se o é atingível em largura
-            
-            Parameters
-            ----------
+
            
         '''
         total = len(self.graph.keys()) - 1
@@ -627,9 +643,7 @@ class MyGraph:
     def eulerian_path(self):
         '''
             Retorna caminho Euleriano (se existir)
-            
-            Parameters
-            ----------
+
            
         '''
         unb = self.check_nearly_balanced_graph()
