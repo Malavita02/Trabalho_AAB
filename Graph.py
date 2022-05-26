@@ -12,11 +12,9 @@ class Graph:
        
         '''
             Construtor que cria a variável
-            
-            Parameters
-            ----------
-            :param g: os valores do grafo vão para o dicionário
-        
+            Inputs:
+                :g: dicionário que contém o grafo
+                :type g: dict
         '''
         self.graph = g
         
@@ -61,10 +59,9 @@ class Graph:
     def add_vertex(self, v: str):
         ''' 
             Adiciona nodo v ao grafo
-            
-            Parameters
-            ----------
-            v: nodo adicionado
+            Inputs:
+                :v: nodo adicionado
+                :type text: string
         '''
         
         if v in self.graph:
@@ -74,12 +71,14 @@ class Graph:
 
     def add_edge(self, v1: str, v2: str, w : int = None):
         ''' 
-            Adiciona o arco (v1,v2) ao grafo e peso w
-            
-            Parameters
-            ----------
-            v1: arco adicionado
-            v2: arco adicionado
+            Adiciona o arco (v1,v2) ao grafo e peso 
+            Inputs:
+                :v1: arco adicionado
+                :type v1: string
+                :v2: arco adicionado
+                :type v2: string
+                :w: custo associado
+                :type w: int
         '''
         if v1 not in self.graph:
             print("O nodo", v1, " não existe")
@@ -98,11 +97,15 @@ class Graph:
         ''' 
             Distância entre dois nós dada pelo comprimento 
             do caminho mais curto entre os mesmos
-            
-            Parameters
-            ----------
-            s: nodo origem
-            d: nodo destino
+            Inputs: 
+                :s: nodo origem
+                :type s: string
+                :d: nodo destino
+                :type d: string
+            Returns:
+                :return int: distância para chegar a outro nodo
+                :rtype int: int
+         
         '''
         if s == d: 
             return 0
@@ -123,10 +126,14 @@ class Graph:
             Caminho mais curto entre dois nós caminho onde o comprimento (nº de nós) é o menor 
             entre todos os caminhos possíveis entre eles
             
-            Parameters
-            ----------
-            s: nodo origem
-            d: nodo destino
+            Inputs: 
+                :s: nodo origem
+                :type s: string
+                :d: nodo destino
+                :type d: string
+            Returns:
+                :return list: lista do caminho mais curto
+                :rtype list: list
         '''
         
         if s == d: 
@@ -148,10 +155,13 @@ class Graph:
             Caminho mais curto entre dois nós caminho onde o comprimento (nº de nós) é o menor 
             entre todos os caminhos possíveis entre eles pelo algoritmo Dijkstra
             
-            Parameters
-            ----------
-            origem: nodo origem
-            
+            Inputs: 
+                :orig: nodo origem
+                :type orig: string
+                
+            Returns:
+                :return list: caminho mais curto pelo algoritmo Dijkstra
+                :rtype list: list
         '''
         visited = set()
         dic_parents = {}
@@ -187,8 +197,8 @@ def is_in_tuple_list(tl: str, val: str):
         
         Parameters
         ----------
-        tl: string
-        val: string
+        :tl: string
+        :val: string
     '''
     res = False
     for (x, y) in tl:
@@ -201,8 +211,8 @@ def find_path(parents: str, dest : str)-> list:
         
         Parameters
         ----------
-        parentes: nodos próximos
-        destino: nodo de destino
+        :parentes: nodos próximos
+        :destino: nodo de destino
     '''
     lista = []
     lista.append(dest)
@@ -218,9 +228,9 @@ def find(parents: str, dest : str, lista: list)-> list:
         
         Parameters
         ----------
-        parentes: nodos próximos
-        destino: nodo de destino
-        lista: lista de nodos de destino ao longo do trajeto
+        :parentes: nodos próximos
+        :destino: nodo de destino
+        :lista: lista de nodos de destino ao longo do trajeto
     '''
     lista.append(dest)
     if parents[dest] in parents.keys():
