@@ -2,6 +2,9 @@
 class Sufix_trie:
     """
     Esta classe permite fazer um pré-processamento da sequência na qual se quer procurar o padrão (ou padrões)
+    Inputs:
+            :seq: Sequência
+            :type seqs: string
     """
     def __init__(self, seq):
         n = len(seq)
