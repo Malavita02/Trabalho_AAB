@@ -37,9 +37,7 @@ class MetabolicNetwork (MyGraph):
         Obtemos os tipos de nós
         Inputs:
             :node_type: Tipo de nó
-        Returns: 
-            :return list: Devolve os nós do tipo que escolhemos
-            :rtype list: list
+        Returns: Devolve os nós do tipo que escolhemos
         '''
         if node_type in self.node_types:
             return self.node_types[node_type]
@@ -124,7 +122,7 @@ class MetabolicNetwork (MyGraph):
             self.add_vertex(tipo_de_no) #Adiciona o metabolito ou reação á rede
             successors = gmr.get_successors(tipo_de_no) #Se o tipo de nó for (metabolite) obtém as reações de cada metabolito, Exemplo: M1 -> R1
             for s in successors:
-                succesors_tipo_de_no = gmr.get_successors(succ)  #Obtém os metabolitos de cada reação, Exemplo: R2 -> M3
+                succesors_tipo_de_no = gmr.get_successors(s)  #Obtém os metabolitos de cada reação, Exemplo: R2 -> M3
                 for s2 in succesors_tipo_de_no: #Obtém o metabolito resultante da reação
                     if tipo_de_no != s2: # Se o metabolito for diferente do metabolito da reação:
                         self.add_edge(tipo_de_no, s2) #Adiciona a ligação
@@ -138,12 +136,12 @@ class MetabolicNetwork (MyGraph):
             :return list: Lista com as reações ativas
             :rtype list: list
         """
-        active_reactions = [] #Criamos a lista "active_reactions" para adicionar as reações ativas
         if self.net_type != "metabolite-reaction" or not self.split_rev: #Se o tipo da rede metabólica for diferente de (metabolite-reaction)
             return None #Retorna "vazio"
+        active_reactions = [] #Criamos a lista "active_reactions" para adicionar as reações ativas
         for reaction in self.node_types["reaction"]: #Obtém todas as reações
             predecessors = self.get_predecessors(reaction) #Obtém os metabolitos predecessores  das reações
-            if all(metabolite in predecessors for metabolite in substrates): #Se todos os metabolitos resultantes estiverem na lista de metabolitos 'substrates':
+            for metabolite in predecessors: #Se  os metabolitos resultantes estiverem na lista de metabolitos 'substrates':
                 active_reactions.append(reaction) #Adicionamos essa reação á nossa lista 'active_reactions'
         return active_reactions
 
@@ -172,6 +170,8 @@ class MetabolicNetwork (MyGraph):
             :return list: Lista com os Metabolitos Finais
             :rtype list: list
         """
+        if self.net_type != "metabolite-reaction":
+            return []
         final_metabolites = []
         metabolites = initial_metabolites
         while True: # Foi criado um ciclo infinito para adicionar os metabolitos produzidos aos metabolitos finais
@@ -186,6 +186,7 @@ class MetabolicNetwork (MyGraph):
 
 
 def test1():
+    print("Grafo example_net")
     m = MetabolicNetwork("metabolite-reaction")
     m.add_vertex_type("R1","reaction")
     m.add_vertex_type("R2","reaction")
@@ -225,7 +226,7 @@ def test2():
     
     print("metabolite-metabolite network:")
     mmn = MetabolicNetwork("metabolite-metabolite")
-    mmn.load_from_file("redeMetabolitos.txt")
+    mmn.load_from_file("example_net.txt")
     mmn.print_graph()
     print("Metabolites: ", mrn.get_nodes_type("metabolite"))
     print("Metabolites: ", mrn.get_nodes_type("metabolite"))
@@ -253,13 +254,12 @@ def teste_ecoli():
     graph = MetabolicNetwork("metabolite-reaction")
     graph.load_from_file("ecoli.txt")
     print(f"Média de graus:", graph.mean_degree())
-    print(graph.prob_degree())
-    print("MeanGraphInicio")
-    #Entra em loop "infinito" print(graph.mean_distances())
-    print("MeanGraphFim")
-    print("graph")
+    #Entra em loop "infinito" print(graph.prob_degree())
+    print("Distâncias médias:", graph.mean_distances())
+    
+    print("Grafo ecoli:")
     print(graph.print_graph())
-    graph.final_metabolites(graph.node_types)
+    print(graph.final_metabolites(["M_h_c", "M_o2_c"]))
 
 
 test1()
