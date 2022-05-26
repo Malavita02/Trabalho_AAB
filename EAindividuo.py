@@ -1,5 +1,8 @@
 from random import randint, random, shuffle
 
+''' O que caracteriza o indivíduo são os seus genes e o fitness (valor de aptidão) 
+        lb e ub são o intervalo de valores que cada gene pode ter 
+        '''
 
 class Indiv:
 
