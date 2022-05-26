@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 class Automata:
+     '''
+        Os Autómatos processam uma sequência de símbolos da esquerda para a direita.
+        Este pode ser usado para procurar ocorrências do padrão usado para o construir.
+        Inputs:
+            :pattern: Padrão a procurar
+            :type pattern: string
+            :alphabet: Alfabeto que o padrão pertence (por omissão "ATCG")
+            :type alphabet: string
     '''
-    Os Autómatos processam uma sequência de símbolos da esquerda para a direita.
-    Este pode ser usado para procurar ocorrências do padrão usado para o construir.
-    '''
-    
-    def __init__(self, alphabet, pattern):
+    def __init__(self, alphabet, pattern: str)-> str:
         self.numstates = len(pattern) + 1
         self.current = 0 # [0, 1, 2, 3, 4, 5]
         self.pattern = pattern
@@ -13,6 +17,9 @@ class Automata:
         self.alphabet = alphabet
 
     def printAutomata(self):
+        '''
+            Mostra os estados, alfabeto utilizado, o padrão de procura e contrói uma tabela de transição a partir do padrão
+        '''
         print("States: ", self.numstates)
         print("Alphabet: ", self.alphabet)
         print("Pattern: ", self.pattern)
@@ -26,7 +33,14 @@ class Automata:
                 detected = state == self.numstates - 1
                 print(state, " + ", self.alphabet[symbolIndex], " = ", nextState, " detected: ", detected)
 
-    def nextState(self, symbol):
+    def nextState(self, symbol: str)-> str:
+        '''
+            Verifica o símbolo seguinte. Se o mesmo se encontra no padrão
+            Inputs:
+                :symbol: Símbolo a procurar o padrão
+                :type text: string
+      
+            '''
         if(symbol == self.pattern[self.current]): # Se simbolo é o próximo no padrão
             self.current += 1 # Avançar para o próximo estado
             if(self.current == self.numstates):
@@ -42,7 +56,16 @@ class Automata:
             self.current = patternSubSequence(symbol)
             self.detected = False
 
-    def patternSubSequence(self, symbol):
+    def patternSubSequence(self, symbol: str)-> int:
+        '''
+            Função que faz a procura do padrão na sequência 
+            Inputs:
+                :symbol: Sequência ou o texto para procurar o padrão
+                :type symbol: string
+            Returns:
+                :return int: índice do próximo
+                :rtype int: int
+            '''
         # Caso contrário, se o estado atual (string detetada até agora) for substring do padrão,
         # queremos ir para o estado correspondente ao tamanho dessa substring
         sequence = self.pattern[0:self.current] + symbol
@@ -63,7 +86,17 @@ class Automata:
             nextState = sequenceStartIndex
         return nextState
 
-    def occurencesPattern(self, text):
+    def occurencesPattern(self, text: str)-> list:
+         '''
+           Função que conta as ocorrências do padrão
+            Inputs:
+                :text: Sequência ou o texto para procurar o padrão
+                :type text: string
+            Returns:
+                :return list: lista com as ocorrências do padrão
+                :rtype list: list
+            '''
+
         self.current = 0
         res = []
         for symbolIndex in range(len(text)):
@@ -72,10 +105,22 @@ class Automata:
                 res.append(symbolIndex)
         return res
 
-    def overlap(s1, s2): #ignorada
+    def overlap(s1: str, s2: str) -> int:
+        '''
+           Função que dá o comprimento do overlap máximo entre s1 e s2, ou seja, o maior sufixo de s1 que é prefixo de s2
+            Inputs:
+                :s1: Sequência ou o texto para procurar o padrão
+                :type text: string
+                :s2: Sequência ou o texto para procurar o padrão
+                :type text: string
+            Returns:
+                :return int: comprimento do overlap máximo
+                :rtype int: int
+            '''
         maxov = min(len(s1), len(s2))
         for i in range(maxov, 0, -1):
-            if s1[-i:] == s2[:i]: return i
+            if s1[-i:] == s2[:i]: 
+                return i
         return 0
     
 automata = Automata("ABC", "AABB")
