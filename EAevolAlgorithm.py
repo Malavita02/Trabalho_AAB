@@ -1,5 +1,5 @@
 from Popul import Popul
-
+# class que faz o EA recebe o tamanho da populaçao, o n de iterações, o n de descedentes e o tamanho do individuo 
 
 class EvolAlgorithm:
 
