@@ -33,6 +33,14 @@ class Sufix_trie:
         return str(trie)
 
     def insert(self, seq, i):
+        '''
+        Insere a sequência na árvore
+        Inputs:
+            :seq: Sequência a inserir
+            :type seq: string
+            :i: Índice
+            :type i: int
+        '''
         t = self.trie
         for x in seq:
             if x not in t:
