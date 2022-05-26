@@ -10,12 +10,16 @@ class BoyerMoore:
             :type alphabet: string
     '''
     def __init__(self, pattern: str, alphabet = "ATCG") -> str:
+     
         self.pattern = pattern
         self.alphabet = alphabet
         self.preprocess()
         self.check_pattern()
         
     def check_pattern(self):
+        ''' 
+            Verifica o padrão
+        '''
         if type(self.pattern) != str:
             raise TypeError("Esse padrão não é uma string.")
         for p in self.pattern:
@@ -23,10 +27,17 @@ class BoyerMoore:
                 raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
 
     def preprocess(self):
+        ''' 
+            Distinção entre os dois processos
+        '''
         self.process_bad_character_rule()
         self.process_good_suffix_rule()
 
     def process_bad_character_rule(self):
+        ''' 
+            Processamento através da bad caracter rule onde avança para a próxima ocorrência no padrão do símbolo 
+            que falhou (ou se não existir avançar o máximo possível).
+        '''
         self.occurrences = {}
         for s in self.alphabet:
             self.occurrences[s] = -1
@@ -34,6 +45,10 @@ class BoyerMoore:
             self.occurrences[self.pattern[j]] = j
             
      def process_good_suffix_rule(self):
+        ''' 
+            Processamento através da good suffix rule onde avança para a próxima ocorrência no padrão da parte 
+            que fez match antes de falhar. Se o sufixo não ocorre de novo, pode avançar tamanho do padrão.
+        '''
         self.f = [0 for n in range(len(self.pattern) + 1)]
         self.s = [0 for n in range(len(self.pattern) + 1)]
         i = len(self.pattern)
