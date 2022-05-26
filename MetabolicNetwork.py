@@ -27,7 +27,7 @@ class MetabolicNetwork (MyGraph):
         Adiciona nós
         Inputs:
             :v: Nó que é adionado á nossa rede metabólica
-            :param nodetype: O tipo de nó que é adicionado que neste caso ou é (reaction) ou (metabolite)
+            :nodetype: O tipo de nó que é adicionado que neste caso ou é (reaction) ou (metabolite)
         '''
         self.add_vertex(v)
         self.node_types[nodetype].append(v)
@@ -37,7 +37,9 @@ class MetabolicNetwork (MyGraph):
         Obtemos os tipos de nós
         Inputs:
             :node_type: Tipo de nó
-        Returns: Devolve os nós do tipo que escolhemos
+        Returns: 
+            :return list: Devolve os nós do tipo que escolhemos
+            :rtype list: list
         '''
         if node_type in self.node_types:
             return self.node_types[node_type]
