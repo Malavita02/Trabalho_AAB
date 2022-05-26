@@ -9,12 +9,22 @@ class Automata:
             :alphabet: Alfabeto que o padrão pertence (por omissão "ATCG")
             :type alphabet: string
     '''
-    def __init__(self, alphabet, pattern: str)-> str:
+    def __init__(self, alphabet, pattern):
         self.numstates = len(pattern) + 1
-        self.current = 0 # [0, 1, 2, 3, 4, 5]
+        self.current = 0  # [0, 1, 2, 3, 4, 5]
         self.pattern = pattern
         self.detected = False
         self.alphabet = alphabet
+        self.check_pattern_alphabet()
+
+    def check_pattern_alphabet(self):
+        if type(self.pattern) != str:
+            raise TypeError("Esse padrão não é uma string.")
+        if type(self.alphabet) != str:
+            raise TypeError("Esse alphabet não é uma string.")
+        for p in self.pattern:
+            if p not in self.alphabet:
+                raise TypeError("Esse padrão não pertence ao alfabeto indicado.")
 
     def printAutomata(self):
         '''
