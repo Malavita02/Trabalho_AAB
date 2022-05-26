@@ -3,8 +3,17 @@
 from MyGraph import MyGraph
 
 class MetabolicNetwork (MyGraph):
+    '''
+    Classe que representa as redes metabólicas
+    '''
     
     def __init__(self, network_type = "metabolite-reaction", split_rev = False):
+        '''
+        Armazena as variáveis globais da classe
+        Inputs:
+            :network_type: Tipo de rede metabólica
+            :split_rev: Se a reação for reversível retorna true
+        '''
         MyGraph.__init__(self, {})
         self.net_type = network_type
         self.node_types = {}
@@ -14,15 +23,33 @@ class MetabolicNetwork (MyGraph):
         self.split_rev =  split_rev
 
     def add_vertex_type(self, v, nodetype):
+        '''
+        Adiciona nós
+        Inputs:
+            :v: Nó que é adionado á nossa rede metabólica
+            :param nodetype: O tipo de nó que é adicionado que neste caso ou é (reaction) ou (metabolite)
+        '''
         self.add_vertex(v)
         self.node_types[nodetype].append(v)
     
     def get_nodes_type(self, node_type):
+        '''
+        Obtemos os tipos de nós
+        Inputs:
+            :node_type: Tipo de nó
+        Returns: Devolve os nós do tipo que escolhemos
+        '''
         if node_type in self.node_types:
             return self.node_types[node_type]
         else: return None
     
     def load_from_file(self, filename):
+        '''
+        Esta função cria uma rede metabólica ”metabolite-reaction” (grafo bipartido),através do ficheiro que
+        disponibilizamos, em que cada reação é definida numa linha
+        Inputs:
+            :filename: Nome do Ficheiro
+        '''
         rf = open(filename)
         gmr = MetabolicNetwork("metabolite-reaction")
         for line in rf:
@@ -78,53 +105,61 @@ class MetabolicNetwork (MyGraph):
             self.graph = gmr.graph
             self.node_types = gmr.node_types
         elif self.net_type == "metabolite-metabolite":
-            self.convert_metabolite_net(gmr, "metabolite")
+            self.convert_metabolite_network(gmr, "metabolite")
         elif self.net_type == "reaction-reaction": 
-            self.convert_metabolite_net(gmr, "reaction")
+            self.convert_metabolite_network(gmr, "reaction")
         else: self.graph = {}
         
         
-    def convert_metabolite_net(self, gmr, tipo):
+    def convert_metabolite_network(self, gmr, tipo):
         '''
-        Cria rede de metabolitos e reações
+        Converte a rede metabólica (metabolite-reaction) para (metabolite-metabolite) ou (reaction-reaction)
         Inputs:
-            gmr: Rede Metabólica "metabolite-reaction"
-            tipo: Tipo de nó (reaction ou metabolite)
+            gmr: Rede Metabólica
+            tipo: O tipo de nó é reaction ou metabolite
         '''
-        for metabolite in gmr.node_types[tipo]: #Obtém todos os metabolitos
-            self.add_vertex(metabolite) #Adiciona o metabolito á rede
-            successors = gmr.get_successors(metabolite) #Obtém as reações de cada metabolito, Exemplo: M1 -> R1
-            for succ in successors:
-                last_metabolite = gmr.get_successors(succ)  #Obtém os metabolitos de cada reação, Exemplo: R2 -> M3
-                for reaction_to_metabolite in last_metabolite: #Obtém o metabolito resultante da reação
-                    if metabolite != reaction_to_metabolite: # Se o metabolito for diferente do metabolito da reação, adiciona a ligação
-                        self.add_edge(metabolite, reaction_to_metabolite)
+        for tipo_de_no in gmr.node_types[tipo]: #Obtém todos os metabolitos ou reações
+            self.add_vertex(tipo_de_no) #Adiciona o metabolito ou reação á rede
+            successors = gmr.get_successors(tipo_de_no) #Se o tipo de nó for (metabolite) obtém as reações de cada metabolito, Exemplo: M1 -> R1
+            for s in successors:
+                succesors_tipo_de_no = gmr.get_successors(succ)  #Obtém os metabolitos de cada reação, Exemplo: R2 -> M3
+                for s2 in succesors_tipo_de_no: #Obtém o metabolito resultante da reação
+                    if tipo_de_no != s2: # Se o metabolito for diferente do metabolito da reação:
+                        self.add_edge(tipo_de_no, s2) #Adiciona a ligação
 
-    def active_reactions(self, substrates: list):
+    def active_reactions(self, substrates):
         """
         Determina todas as reações ativas dado uma lista de metabolitos
         Inputs:
-            substrates: Lista de metabolitos existentes
-        Outputs:
-            active_reactions: Devolve a lista com as reações ativas
+            :substrates: Lista de metabolitos existentes
+        Returns:
+            :return list: Lista com as reações ativas
+            :rtype list: list
         """
         active_reactions = [] #Criamos a lista "active_reactions" para adicionar as reações ativas
+        if self.net_type != "metabolite-reaction" or not self.split_rev: #Se o tipo da rede metabólica for diferente de (metabolite-reaction)
+            return None #Retorna "vazio"
         for reaction in self.node_types["reaction"]: #Obtém todas as reações
             predecessors = self.get_predecessors(reaction) #Obtém os metabolitos predecessores  das reações
             if all(metabolite in predecessors for metabolite in substrates): #Se todos os metabolitos resultantes estiverem na lista de metabolitos 'substrates':
                 active_reactions.append(reaction) #Adicionamos essa reação á nossa lista 'active_reactions'
         return active_reactions
 
-    def produced_metabolites(self, active_reactions: list):
+    def produced_metabolites(self, active_reactions):
         """
         Determina os metabolitos que podem ser produzidos dada uma lista de reações ativas
         Inputs:
-            active_reactions: Lista de Reações Ativas
+            :active_reactions: Lista de Reações Ativas
+        Returns:
+            :return list: Lista com os metabolitos produzidos
+            :rtype list: list
         """
         produced_metabolites = [] #Criamos a lista "produced_metabolites" para adicionar os metabolitos
-        for reactions in active_reactions: #Percorremos a lista de reações ativas
-            produced_metabolites.extend(self.graph[reactions]) #Adicionamos as reações á lista que criamos
-        return set(produced_metabolites)  #Eliminar os metabolitos repetidos
+        for reaction in active_reactions: #Percorremos a lista de reações ativas
+            succesors = self.get_successors(reaction) #Obtém os metabolitos de cada reação ativa
+            for s in succesors:
+                produced_metabolites.append(s) #Adiciona o metabolito á lista
+        return set(produced_metabolites)
 
     def final_metabolites(self, initial_metabolites: list):
         """
