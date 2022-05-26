@@ -25,6 +25,12 @@ class Trie:
 
 
     def print_trie(self):
+        '''
+        "Imprime" a árvore
+        Returns:
+                :return str: Devolve a árvore
+                :rtype str: str
+        '''
         trie = pprint.pprint(self.trie, width=1)
         return str(trie)
 
