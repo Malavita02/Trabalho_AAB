@@ -2,7 +2,7 @@
 """
 """
 
-def createMatZeros (nl, nc):
+def createMatZeros (nl, nc): # cria matriz de zeros nlxnc
     res = [ ] 
     for i in range(0, nl):
         res.append([0]*nc)
@@ -12,6 +12,7 @@ def printMat(mat):
     for i in range(0, len(mat)): print(mat[i])
 
 class MyMotifs:
+# classe que recebe uma lista de sequÊncias
 
     def __init__(self, seqs):
         self.size = len(seqs[0])
@@ -20,24 +21,24 @@ class MyMotifs:
         self.doCounts()
         self.createPWM()
         
-    def __len__ (self):
+    def __len__ (self): ''' Comprimento das seqs '''
         return self.size        
         
-    def doCounts(self):
+    def doCounts(self): ''' Cria a matriz de contagens '''
         self.counts = createMatZeros(len(self.alphabet), self.size)
         for s in self.seqs:
             for i in range(self.size):
                 lin = self.alphabet.index(s[i])
                 self.counts[lin][i] += 1
                 
-    def createPWM(self):
+    def createPWM(self):  ''' Cria a matriz de probabilidades '''
         if self.counts == None: self.doCounts()
         self.pwm = createMatZeros(len(self.alphabet), self.size)
         for i in range(len(self.alphabet)):
             for j in range(self.size):
                 self.pwm[i][j] = float(self.counts[i][j]) / len(self.seqs)
                 
-    def consensus(self):
+    def consensus(self): ''' Procura o consensus na matriz dos counts por coluna '''
         res = ""
         for j in range(self.size):
             maxcol = self.counts[0][j]
@@ -49,7 +50,7 @@ class MyMotifs:
             res += self.alphabet[maxcoli]        
         return res
 
-    def maskedConsensus(self):
+    def maskedConsensus(self):  ''' Semelhantes ao consensus mas só interessa as letras com uma incidência superior a 50% em todas as seqs '''
         res = ""
         for j in range(self.size):
             maxcol = self.counts[0][j]
@@ -64,20 +65,22 @@ class MyMotifs:
                 res += "-"
         return res
 
-    def probabSeq (self, seq):
+    def probabSeq (self, seq): ''' Probabilidade da seq fazer parte da PWM '''
         res = 1.0
         for i in range(self.size):
             lin = self.alphabet.index(seq[i])
             res *= self.pwm[lin][i]
         return res
     
-    def probAllPositions(self, seq):
+    def probAllPositions(self, seq): ''' Probablidade de devolver uma lista com as probabilidades de acontecer em cada letra da seq '''
+        
         res = []
         for pos in range(len(seq)-self.size+1):
             res.append(self.probabSeq(seq[pos:pos+self.size]))
         return res
 
-    def mostProbableSeq(self, seq):
+    def mostProbableSeq(self, seq):  ''' Verifica qual é a posição inicial da subseq de uma seq de comprimento indefinido que encaixa melhor no quadro de motifs das seqs '''
+        
         maximo = -1.0
         maxind = -1
         for k in range(len(seq)-self.size):
