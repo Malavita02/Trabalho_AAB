@@ -31,13 +31,21 @@ class Trie:
         '''
         "Imprime" a árvore
         Returns:
-                :return str: Devolve a árvore
-                :rtype str: str
+            :return str: Devolve a árvore
+            :rtype str: str
+                
         '''
         trie = pprint.pprint(self.trie, width=1)
         return str(trie)
 
     def insert(self, seq):
+        '''
+        Insere a sequência na árvore
+        Inputs:
+            :seq: Sequência a inserir
+            :type seq: string
+                
+        '''
         t = self.trie
         for x in seq:
             if x not in t:
