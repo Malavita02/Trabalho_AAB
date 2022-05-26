@@ -9,6 +9,7 @@ Scripts completos:
 * BWT (falta so acabar comentarios)
 * Grafo (aula 6)
 * MotifFinding
+* EvolAlgorithm
 
 Unittests:
 * Grafo (aula 6)
@@ -17,6 +18,7 @@ Unittests:
 * SufixTrie
 * BWT
 * MotifFinding
+* EvolAlgorithm
 
 
 Trabalho realizado por:
