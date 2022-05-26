@@ -12,6 +12,9 @@ class Sufix_trie:
             self.insert(seq[i:n], i)
 
     def check_seqs(self):
+        '''
+        Verifica se a sequência é uma string
+        '''
         if type(self.seq) != str:
             raise TypeError("Estas sequencias não são strings.")
 
