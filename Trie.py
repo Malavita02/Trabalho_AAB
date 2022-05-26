@@ -43,8 +43,7 @@ class Trie:
         Insere a sequência na árvore
         Inputs:
             :seq: Sequência a inserir
-            :type seq: string
-                
+            :type seq: string          
         '''
         t = self.trie
         for x in seq:
