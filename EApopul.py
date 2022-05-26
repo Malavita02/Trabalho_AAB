@@ -111,13 +111,3 @@ class PopulInt(Popul):
             indiv_i = IndivInt(self.indsize, [], 0, self.ub)
             self.indivs.append(indiv_i)
 
-
-class PopulReal(Popul):
-
-    def __init__(self, popsize, indsize, lb=0.0, ub=1.0, indivs=[]):
-        # completar
-        pass
-
-    def initRandomPop(self):
-        # completar
-        pass
