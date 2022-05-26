@@ -7,12 +7,14 @@ Scripts completos:
 * Trie
 * BWT (falta so acabar comentarios)
 * Grafo (aula 6)
+* MotifFinding
 
 Unittests:
 * Grafo (aula 6)
 * BoyerMoore
 * Trie
 * BWT
+* MotifFinding
 
 
 Trabalho realizado por:
