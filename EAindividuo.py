@@ -105,14 +105,10 @@ class IndivInt (Indiv):
         s = len(self.genes)
         pos = randint(0, s-1)
         self.genes[pos] = randint(0, self.ub)
+        
+        while (num == self.genes[pos]):
+            num = randint(0, self.ub)
+        
+        self.genes[pos] = num
 
 
-class IndivReal(Indiv):
-
-    def initRandom(self, size):
-        # completar e remover a exceção
-        raise NotImplementedError
-
-    def mutation(self):
-        # completar e remover a exceção
-        raise NotImplementedError
