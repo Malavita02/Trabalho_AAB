@@ -17,6 +17,9 @@ class Trie:
             self.insert(seq)
 
     def check_seqs(self):
+        '''
+        Verifica se a sequência é uma string
+        '''
         if type(self.seqs) != str:
             raise TypeError("Estas sequencias não são strings.")
 
@@ -39,7 +42,8 @@ class Trie:
             Inputs:
                 :seq: Padrão da sequência
             Returns:
-                :return "#$#" in t: Retorna True se o padrão da sequência é encontrado  nas sequências "disponíveis"
+                :return boolean: Retorna True se o padrão da sequência é encontrado  nas sequências "disponíveis"
+                :rtype boolean: boolean
         '''
         t = self.trie
         for x in seq:
