@@ -7,6 +7,9 @@ class Trie:
         Cada arco é associado a um dos símbolos do alfabeto, sendo que cada arco que sai de um nodo é associado a um símbolo distinto
         Árvore tem uma folha por cada padrão.
         Cada padrão pode ser construído juntando os símbolos da raiz até uma das folhas
+        Inputs:
+            :seqs: Sequências
+            :type seqs: string
     """
     def __init__(self, seqs):
         self.trie = {}
