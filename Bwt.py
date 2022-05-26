@@ -23,9 +23,10 @@ class Bwt:
 
     def get_bwt(self):
         '''
-            Retorna a última coluna da matriz
-            :param seq: Sequência
-            :return self.bwt_seq: Retorna a sequencia BWT
+            Retorna a sequência BWT
+            Returns:
+                :return str: Devolve a sequência BWT
+                :rtype str: string
         '''
         return self.bwt_seq
 
