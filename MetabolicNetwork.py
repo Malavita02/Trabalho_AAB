@@ -161,28 +161,25 @@ class MetabolicNetwork (MyGraph):
                 produced_metabolites.append(s) #Adiciona o metabolito á lista
         return set(produced_metabolites)
 
-    def final_metabolites(self, initial_metabolites: list):
+    def final_metabolites(self, initial_metabolites):
         """
         Determina todos os metabolitos finais que poderão ser produzidos dada uma lista de metabolitos iniciais
         Inputs:
-            initial_metabolites: Lista de Metabolitos Iniciais
-        Outputs:
-            final_metabolites: Devolve a lista dos metabolitos finais
+            :initial_metabolites: Lista de Metabolitos Iniciais
+        Returns:
+            :return list: Lista com os Metabolitos Finais
+            :rtype list: list
         """
         final_metabolites = []
         metabolites = initial_metabolites
         while True: # Foi criado um ciclo infinito para adicionar os metabolitos produzidos aos metabolitos finais
-            active_reactions = self.active_reactions(initial_metabolites)
-            produced_metabolites = self.produced_metabolites(active_reactions)
-            if not all(produced_metabolites) in final_metabolites:
-                for metabolite in produced_metabolites:
-                    if metabolite not in final_metabolites:
-                        final_metabolites.append(metabolite)
-                        metabolites.extend(final_metabolites)  #
-            else:
-                break
+            active_reactions = self.active_reactions(initial_metabolites) #Obtemos aqui as reações ativas dados a lista de metabolitos iniciais
+            produced_metabolites = self.produced_metabolites(active_reactions) #Obtemos os metabolitos produzidos através das reações ativas
+            if not all(produced_metabolites) in final_metabolites: #Se o metabolito produzido não está na lista que criamos
+                for metabolite in produced_metabolites: #Percorremos cada metabolito
+                    if metabolite not in final_metabolites: #Se o metabolito não está na lista que criamos:
+                        final_metabolites.append(metabolite) #Adicionamos esse mesmo metabolito á nossa lista
         print("Metabolitos finais:\n")
-        print(final_metabolites)
         return final_metabolites
 
 
@@ -218,7 +215,7 @@ def test1():
 def test2():
     print("metabolite-reaction network:")
     mrn = MetabolicNetwork("metabolite-reaction")
-    mrn.load_from_file("example-net.txt")
+    mrn.load_from_file("example_net.txt")
     mrn.print_graph()
     print("Reactions: ", mrn.get_nodes_type("reaction") )
     print("Metabolites: ", mrn.get_nodes_type("metabolite") )
@@ -234,19 +231,19 @@ def test2():
     
     print("reaction-reaction network:")
     rrn = MetabolicNetwork("reaction-reaction")
-    rrn.load_from_file("example-net.txt")
+    rrn.load_from_file("example_net.txt")
     rrn.print_graph()
     print()
     
     print("metabolite-reaction network (splitting reversible):")
     mrsn = MetabolicNetwork("metabolite-reaction", True)
-    mrsn.load_from_file("example-net.txt")
+    mrsn.load_from_file("example_net.txt")
     mrsn.print_graph()
     print()
     
     print("reaction-reaction network (splitting reversible):")
     rrsn = MetabolicNetwork("reaction-reaction", True)
-    rrsn.load_from_file("example-net.txt")
+    rrsn.load_from_file("example_net.txt")
     rrsn.print_graph()
     print()
 
@@ -262,9 +259,9 @@ def teste_ecoli():
     print(graph.print_graph())
     graph.final_metabolites(graph.node_types)
 
+
 test1()
 print("#############################################")
 test2()
 print("#############################################")
 teste_ecoli()
-
