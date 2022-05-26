@@ -67,9 +67,9 @@ class EAMotifsReal (EvolAlgorithm):
     #     return pwm
 
 
-    def evaluate(self, indivs):
+    def evaluate(self, indivs): #Muda a função de avaliação -> usamos o socre
         for i in range(len(indivs)):
-            ind = indivs[i]
+            ind = indivs[i] #Cada vetor de posições
             sol = ind.getGenes()
             score = 1.0
             
@@ -80,7 +80,7 @@ class EAMotifsReal (EvolAlgorithm):
                         maxcol = sol[i][j]
                 score *= maxcol
 
-            fit = self.motifs.score(sol)
+            fit = self.motifs.score(sol) #Avalia o score que será a fit para cada vetor de posições iniciais
             ind.setFitness(fit)
 
 def test1():
