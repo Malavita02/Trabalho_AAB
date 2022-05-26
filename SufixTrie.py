@@ -6,8 +6,14 @@ class Sufix_trie:
     def __init__(self, seq):
         n = len(seq)
         self.trie = {}
+        self.seq = seq
+        self.check_seqs()
         for i in range(n+1):
             self.insert(seq[i:n], i)
+
+    def check_seqs(self):
+        if type(self.seq) != str:
+            raise TypeError("Estas sequencias não são strings.")
 
     def __str__(self):
         import pprint
@@ -31,7 +37,20 @@ class Sufix_trie:
             :return t["$"]: Devolve a posição do nó
         '''
         t = self.trie
+        list = []
         for x in seq:
             if x not in t: return False
             t = t[x]
-        return t["$"]
+            list.append(t)
+        string = str(list)
+        res = ""
+        for s in string:
+            if s in ["0","1","2","3","4","5","6","7","8","9","$"]:
+                res += s
+        res = res.strip().split("$")
+        sol = []
+        for i in res:
+            if i != "" and i not in sol:
+                sol.append(i)
+        sol = [int(i) for i in sol]
+        return sol
