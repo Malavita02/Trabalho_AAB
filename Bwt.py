@@ -2,6 +2,10 @@
 class Bwt:
     """
         O objetivo desta class é converter repetições em sequências de símbolos repetidos
+        Inputs:
+            :seq: Sequência 
+            :type seq: string
+            
     """
     def __init__(self, seq):
         self.seq = seq
@@ -10,6 +14,10 @@ class Bwt:
         self.bwt_seq, self.sa = self.sufix_array()
 
     def check_seqs(self):
+         '''
+            Verifica se a sequência é uma string
+            
+        '''
         if type(self.seq) != str:
             raise TypeError("Estas sequencias não são strings.")
 
@@ -21,16 +29,38 @@ class Bwt:
         '''
         return self.bwt_seq
 
-    def build_bwt(self, text):
+    def build_bwt(self, text:str)-> str:
+         '''
+            Retorna a última coluna da matriz
+            Inputs:
+                :text: Sequência ou o texto para procurar o padrão
+                :type text: string
+            Returns:
+                :return str: última coluna da matriz
+                :rtype str: string
+        '''
         perm_ord = sorted([(text[i:] + text[:i], i) for i in range(len(text))])
         return perm_ord
 
     def sufix_array(self):
+        '''
+            Retorna a última coluna da matriz
+         
+        '''
         bwt, suffix_array = zip(*[(s[-1], p) for s, p in self.btw])
         bwt = "".join(bwt)
         return bwt, suffix_array
 
-    def dict_bwt(self, bwt):
+    def dict_bwt(self, bwt:str)-> dict:
+        '''
+            Contróis uma tabela com o bwt
+            Inputs:
+                :bwt: sequencia
+                :type bwt: string
+            Returns:
+                :return tab: dicionário com elementos do bwt
+                :rtype tab: dicionario
+        '''
         def tabela():
             D = {}
             def _add(x):
@@ -46,7 +76,16 @@ class Bwt:
         tab = {k: v for k, v in zip(self.bwt_off, self.ord_off)}
         return tab
 
-    def reverse_bwt(self, bwt):
+    def reverse_bwt(self, bwt:str)-> str:
+        '''
+            Inverte a coluna da matriz para obter a sequência
+            Inputs:
+                :bwt: Sequência para reverter
+                :type bwt: string
+            Returns:
+                :return str: última coluna da matriz
+                :rtype str: string
+        '''
         tab = self.dict_bwt(bwt)
         rec = ""
         x = tab["$0"]
@@ -56,7 +95,16 @@ class Bwt:
         self.dict_bwt = tab
         return rec
 
-    def find_pattern(self, patt):
+    def find_pattern(self, patt:str)-> list:
+        '''
+            Procura padrão com a bwt
+            Inputs:
+                :patt: Padrão para procurar 
+                :type patt: string
+            Returns:
+                :return res:lista dos índices do padrão que foi encontrado
+                :rtype res: list
+        '''
         for i in range(len(patt)-1):
             p = patt[-1-i]
             l = []
