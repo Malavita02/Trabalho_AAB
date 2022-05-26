@@ -19,6 +19,12 @@ class Sufix_trie:
             raise TypeError("Estas sequencias não são strings.")
 
     def __str__(self):
+        '''
+        "Imprime" a árvore
+        Returns:
+                :return str: Devolve a árvore
+                :rtype str: str
+        '''
         import pprint
         trie = pprint.pprint(self.trie, width=1)
         return str(trie)
