@@ -1,22 +1,21 @@
-from random import randint, random, shuffle
-
-''' O que caracteriza o indivíduo são os seus genes e o fitness (valor de aptidão) 
-        lb e ub são o intervalo de valores que cada gene pode ter 
-        '''
+from random import randint
 
 class Indiv:
-
+    """
+    O que caracteriza o indivíduo são os seus genes e o fitness (valor de aptidão)
+    lb e ub são o intervalo de valores que cada gene pode ter
+    """
     def __init__(self, size, genes=None, lb=0, ub=1):
         self.lb = lb #Lower bound -> limite inferior do gene 0-binário
         self.ub = ub #Upper bound -> limite superioe do gene 1-binário
-        self.genes = genes #Genoma (informação de todo o inidivíduo)
+        self.genes = genes #Genoma (informação de todos os individoos
         self.fitness = None #Guarda o valor de aptidão (fitness)
         if not self.genes: #Se não fro fornecida nenhuma lista de genes
             self.initRandom(size) #Gera-se um indivíduo de forma aleatória
 
-    # comparadores.
-    # Permitem usar sorted, max, min
-        #(sobre a população em que a comparação é feita com base no fitnesse - qualidade das soluções)
+            # comparadores.
+            # Permitem usar sorted, max, min
+                #(sobre a população em que a comparação é feita com base no fitnesse - qualidade das soluções)
 
     def __eq__(self, solution):
         if isinstance(solution, self.__class__):
@@ -58,13 +57,18 @@ class Indiv:
     def getGenes(self):
         return self.genes
 
-    def initRandom(self, size): ''' Gera indivíduos de forma aleatória '''
+    def initRandom(self, size):
+        '''
+        Gera indivíduos de forma aleatória
+        '''
         self.genes = []
         for _ in range(size): #Size é o número de indivíduos (população) -> a nossa solução
             self.genes.append(randint(self.lb, self.ub)) #Gera inidivíduos aleatórios entre 0 e 1 (caso seja binário)
 
     def mutation(self): #São dependentes das representações
-         ''' Mutação sobre im vetor de valores binários '''
+        '''
+        Mutação sobre im vetor de valores binários
+        '''
         s = len(self.genes) #Genes = [0, 1, 0, 1, 0, 1]
         pos = randint(0, s-1) #Gera uma posição -> s - 1 porque o len começa a contar no 1 e o randint este está incluído
         if self.genes[pos] == 0:
@@ -72,10 +76,16 @@ class Indiv:
         else:
             self.genes[pos] = 0
 
-    def crossover(self, indiv2): ''' Cruzamente de um ponto '''
+    def crossover(self, indiv2):
+        '''
+        Cruzamente de um ponto
+        '''
         return self.one_pt_crossover(indiv2)
 
-    def one_pt_crossover(self, indiv2): ''' Construção de um novo indivíduo '''
+    def one_pt_crossover(self, indiv2):
+        '''
+        Construção de um novo indivíduo
+        '''
         offsp1 = []  #Descendente 1
         offsp2 = [] #Descendente 2
         s = len(self.genes)
@@ -102,7 +112,9 @@ class IndivInt (Indiv):
             self.initRandom(size)
 
     def initRandom(self, size):
-         ''' Gerar indivíduos aleatoriamente '''
+        '''
+        Gerar indivíduos aleatoriamente
+        '''
         self.genes = []
         for _ in range(size):
             self.genes.append(randint(0, self.ub))
@@ -111,10 +123,3 @@ class IndivInt (Indiv):
         s = len(self.genes)
         pos = randint(0, s-1) #Escolher posição aleatória
         self.genes[pos] = randint(0, self.ub) #Substituir essa posição por um valor aleatório entre 0 e ub
-        
-        while (num == self.genes[pos]):
-            num = randint(0, self.ub)
-        
-        self.genes[pos] = num
-
-

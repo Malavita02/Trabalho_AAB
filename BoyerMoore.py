@@ -44,7 +44,7 @@ class BoyerMoore:
         for j in range(len(self.pattern)): # AATTTCCG occ['A'] = 1, occ['T'] = 4, occ['C'] = 6, occ['G'] = 7
             self.occurrences[self.pattern[j]] = j
             
-     def process_good_suffix_rule(self):
+    def process_good_suffix_rule(self):
         ''' 
             Processamento através da good suffix rule onde avança para a próxima ocorrência no padrão da parte 
             que fez match antes de falhar. Se o sufixo não ocorre de novo, pode avançar tamanho do padrão.
@@ -68,8 +68,8 @@ class BoyerMoore:
                 self.s[i] = j
             if i == j:
                 j = self.f[j]
-                
-     def search_pattern(self, text:str) -> str:
+
+    def search_pattern(self, text:str) -> str:
         '''
             Recebe a sequência ou o texto onde se pertende encontrar o padrão e devolve uma lista com os indices onde se repete o padrão
             Inputs:
@@ -92,3 +92,9 @@ class BoyerMoore:
                 c = text[i + j]
                 i += max(self.s[j + 1], j - self.occurrences[c])
         return res
+
+def test():
+    bm = BoyerMoore("ACCA", "ACTG")
+    print (bm.search_pattern("ATAGAACCAATGAACCATGATGAACCATGGATACCCAACCACC"))
+
+test()

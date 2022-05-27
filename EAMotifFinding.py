@@ -123,7 +123,9 @@ class MotifFinding:
     
     
     def bypass (self, s):
-          ''' Verifica se já chegou ou não ao final de uma sequência '''
+        '''
+          Verifica se já chegou ou não ao final de uma sequência
+        '''
         res =  []
         pos = len(s) -1
         while pos >=0 and s[pos] == self.seqSize(pos) - self.motifSize:
@@ -143,7 +145,7 @@ class MotifFinding:
             if len(s) < size:
                 optimScore = self.score(s) + (size-len(s)) * self.motifSize
                 if optimScore < melhorScore: #Se o score ótimo for menor que o melhor score anteriormente descoberto s = self.bypass(s)
-                #Passa-se a análise à frente -> vai para o bypass
+                    #Passa-se a análise à frente -> vai para o bypass
                 else: s = self.nextVertex(s)
             else:
                 sc = self.score(s)
@@ -157,7 +159,9 @@ class MotifFinding:
   
     def heuristicConsensus(self):
         #É mais rápido mas não é o ideal porque as duas primeiras sequências não garantem a conservação das sequências
-        """ Procura as posições para o motif nas duas primeiras sequências """ 
+        """
+        Procura as posições para o motif nas duas primeiras sequências
+        """
         
         seqs_atuais = [self.seqs[0], self.seqs[1]]
         melhorScore = -1

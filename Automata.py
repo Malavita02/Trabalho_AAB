@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Automata:
-     '''
+    """
         Os Autómatos processam uma sequência de símbolos da esquerda para a direita.
         Este pode ser usado para procurar ocorrências do padrão usado para o construir.
         Inputs:
@@ -8,7 +8,8 @@ class Automata:
             :type pattern: string
             :alphabet: Alfabeto que o padrão pertence (por omissão "ATCG")
             :type alphabet: string
-    '''
+    """
+
     def __init__(self, alphabet, pattern):
         self.numstates = len(pattern) + 1
         self.current = 0  # [0, 1, 2, 3, 4, 5]
@@ -44,13 +45,13 @@ class Automata:
                 print(state, " + ", self.alphabet[symbolIndex], " = ", nextState, " detected: ", detected)
 
     def nextState(self, symbol: str)-> str:
-        '''
+        """
             Verifica o símbolo seguinte. Se o mesmo se encontra no padrão
             Inputs:
                 :symbol: Símbolo a procurar o padrão
                 :type text: string
       
-            '''
+        """
         if(symbol == self.pattern[self.current]): # Se simbolo é o próximo no padrão
             self.current += 1 # Avançar para o próximo estado
             if(self.current == self.numstates):
@@ -58,12 +59,12 @@ class Automata:
                 # P: AABAA
                 # S: AABAABAA
                 # D: FFFFTFFT
-                self.current = patternSubSequence(symbol)
+                self.current = self.patternSubSequence(symbol)
             else:
                 self.detected = False
         else: # Caso contrário
             # Verificar se existe uma subsequência no (padrão detectato até agora+simbolo) que faça parte do padrão
-            self.current = patternSubSequence(symbol)
+            self.current = self.patternSubSequence(symbol)
             self.detected = False
 
     def patternSubSequence(self, symbol: str)-> int:
@@ -97,41 +98,41 @@ class Automata:
         return nextState
 
     def occurencesPattern(self, text: str)-> list:
-         '''
-           Função que conta as ocorrências do padrão
-            Inputs:
-                :text: Sequência ou o texto para procurar o padrão
-                :type text: string
-            Returns:
-                :return list: lista com as ocorrências do padrão
-                :rtype list: list
-            '''
+        """
+        Função que conta as ocorrências do padrão
+         Inputs:
+             :text: Sequência ou o texto para procurar o padrão
+             :type text: string
+         Returns:
+             :return list: lista com as ocorrências do padrão
+             :rtype list: list
+        """
 
         self.current = 0
         res = []
         for symbolIndex in range(len(text)):
-            self.nextState(self, text[symbolIndex])
-            if(self.detected == True):
-                res.append(symbolIndex)
+         self.nextState(self, text[symbolIndex])
+         if(self.detected == True):
+             res.append(symbolIndex)
         return res
 
     def overlap(s1: str, s2: str) -> int:
-        '''
-           Função que dá o comprimento do overlap máximo entre s1 e s2, ou seja, o maior sufixo de s1 que é prefixo de s2
-            Inputs:
-                :s1: Sequência ou o texto para procurar o padrão
-                :type text: string
-                :s2: Sequência ou o texto para procurar o padrão
-                :type text: string
-            Returns:
-                :return int: comprimento do overlap máximo
-                :rtype int: int
-            '''
+        """
+        Função que dá o comprimento do overlap máximo entre s1 e s2, ou seja, o maior sufixo de s1 que é prefixo de s2
+         Inputs:
+             :s1: Sequência ou o texto para procurar o padrão
+             :type text: string
+             :s2: Sequência ou o texto para procurar o padrão
+             :type text: string
+         Returns:
+             :return int: comprimento do overlap máximo
+             :rtype int: int
+        """
         maxov = min(len(s1), len(s2))
         for i in range(maxov, 0, -1):
-            if s1[-i:] == s2[:i]: 
+            if s1[-i:] == s2[:i]:
                 return i
         return 0
-    
+
 automata = Automata("ABC", "AABB")
 automata.printAutomata()

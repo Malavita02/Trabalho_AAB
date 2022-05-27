@@ -4,9 +4,9 @@ from Trie import Trie
 class TestTrie(TestCase):
     def test_insert(self):
         t = Trie("AAA AAG ACTT")
-        self.assertRaises(TypeError, t, ["phge"])
-        self.assertRaises(TypeError, t, True)
-        self.assertRaises(TypeError, t, 1654)
+        self.assertRaises(TypeError, t.check_seqs, ["phge"])
+        self.assertRaises(TypeError, t.check_seqs, True)
+        self.assertRaises(TypeError, t.check_seqs, 1654)
 
     def test_matches(self):
         t = Trie("AAA AAG ACTT")

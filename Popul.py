@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from Individuo import Indiv, IndivInt, IndivReal
+from Individuo import Indiv, IndivInt
 from random import random
 
 
 class Popul:
-    #                                objeto da class Indiv
+    # objeto da class Indiv
     def __init__(self, popsize, indsize, indivs=[]):
         self.popsize = popsize #Número de indivíduos da população (10 listas)
         self.indsize = indsize #Tamanho dos indivíduos (cada indivíduo (lista) com 5 elementos)
@@ -20,14 +20,19 @@ class Popul:
     def getIndiv(self, index): #Vai bsucar o indivíduo x
         return self.indivs[index]
 
-    def initRandomPop(self):  ''' Gera indivíduos de forma aleatória '''
+    def initRandomPop(self):
+        '''
+        Gera indivíduos de forma aleatória
+        '''
         self.indivs = []
         for _ in range(self.popsize): #Quantidade de listas a gerar
             indiv_i = Indiv(self.indsize)
             self.indivs.append(indiv_i)
 
     def getFitnesses(self, indivs=None): 
-         ''' Vai buscar todos os fitness (valores de aptidão) dos indivíduos '''
+        '''
+        Vai buscar todos os fitness (valores de aptidão) dos indivíduos
+        '''
         fitnesses = [] #Lista de fitness
         if not indivs: #Se não forem inseridos os indivíduos
             indivs = self.indivs
@@ -35,16 +40,24 @@ class Popul:
             fitnesses.append(ind.getFitness()) #Adicionar fitness à lista
         return fitnesses
 
-    def bestSolution(self): ''' Melhor solução dos indivíduos '''
+    def bestSolution(self):
+        '''
+        Melhor solução dos indivíduos
+        '''
         return max(self.indivs)
 
-    def bestFitness(self):  ''' Indivíduos com melhor fitness (avaliação máxima) '''
+    def bestFitness(self):
+        '''
+        Indivíduos com melhor fitness (avaliação máxima)
+        '''
         indv = self.bestSolution() #Melhor solução
         return indv.getFitness() #Fitness da solução
 
 
     def selection(self, n, indivs=None): 
-        ''' Mecanismo de seleção para reprodução '''
+        '''
+        Mecanismo de seleção para reprodução
+        '''
         res = []
         fitnesses = list(self.linscaling(self.getFitnesses(indivs)))
          #Vai obter os fitnesses dos indivíduos e fazer a normalização
@@ -95,7 +108,9 @@ class Popul:
         return offspring
 
     def reinsertion(self, offspring):
-           ''' Mecanismo de reinserção: seleção dos indivíduos que vão constituir a população ou a iteração seguinte '''
+        '''
+        Mecanismo de reinserção: seleção dos indivíduos que vão constituir a população ou a iteração seguinte
+        '''
         tokeep = self.selection(self.popsize-len(offspring))
         ind_offsp = 0
         for i in range(self.popsize):

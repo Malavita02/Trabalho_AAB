@@ -37,7 +37,7 @@ class MotifFinding:
         
         
     # SCORES
-        
+
     def score(self, s):
         score = 0
         motif = self.createMotifFromIndexes(s)
@@ -78,7 +78,7 @@ class MotifFinding:
         else:
             for i in range(pos): 
                 nextS[i] = s[i]
-            nextS[pos] = s[pos]+1;
+            nextS[pos] = s[pos]+1
             for i in range(pos+1, len(s)):
                 nextS[i] = 0
         return nextS

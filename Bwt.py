@@ -14,10 +14,10 @@ class Bwt:
         self.bwt_seq, self.sa = self.sufix_array()
 
     def check_seqs(self):
-         '''
-            Verifica se a sequência é uma string
+        """
+            Verifica se a sequência é uma string.
             
-        '''
+        """
         if type(self.seq) != str:
             raise TypeError("Estas sequencias não são strings.")
 
@@ -31,7 +31,7 @@ class Bwt:
         return self.bwt_seq
 
     def build_bwt(self, text:str)-> str:
-         '''
+        """
             Retorna a última coluna da matriz
             Inputs:
                 :text: Sequência ou o texto para procurar o padrão
@@ -39,7 +39,7 @@ class Bwt:
             Returns:
                 :return str: última coluna da matriz
                 :rtype str: string
-        '''
+        """
         perm_ord = sorted([(text[i:] + text[:i], i) for i in range(len(text))])
         return perm_ord
 

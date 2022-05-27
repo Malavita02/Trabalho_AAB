@@ -66,3 +66,7 @@ class Trie:
             if x not in t: return False
             t = t[x]
         return "#$#" in t
+
+x = Trie("AAA AAG ACTT")
+x.print_trie()
+print(x.matches("AAA"))

@@ -1,16 +1,17 @@
 from Popul import Popul
-# class que faz o EA recebe o tamanho da populaçao, o n de iterações, o n de descedentes e o tamanho do individuo 
+
 
 class EvolAlgorithm:
-
+    """
+    Class que faz o EA receber o tamanho da populaçao, o n de iterações, o n de descedentes e o tamanho do individuo
+    """
     def __init__(self, popsize, numits, noffspring, indsize):
         self.popsize = popsize
         self.numits = numits
         self.noffspring = noffspring
         self.indsize = indsize
-
         self.initPopul(self.indsize)
-        print("teste")
+        self.run()
 
     def initPopul(self, indsize):
         self.popul = Popul(self.popsize, indsize)
@@ -43,6 +44,12 @@ class EvolAlgorithm:
                 self.bestsol = bs
             print("Iteration:", i, " ", "Best: ", self.bestsol)
 
+    def get_best_sol(self):
+        return self.bestsol
+
+    def get_best_fit(self):
+        return self.bestsol.getFitness()
+
     def printBestSolution(self):
         print("Best solution: ", self.bestsol.getGenes())
         print()
@@ -53,6 +60,7 @@ class EvolAlgorithm:
 def test():
     ea = EvolAlgorithm(popsize=1000, numits=1000, noffspring=800, indsize=50)
     ea.run()
+    ea.printBestSolution()
 
 
 if __name__ == "__main__":

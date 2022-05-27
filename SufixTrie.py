@@ -21,7 +21,7 @@ class Sufix_trie:
         if type(self.seq) != str:
             raise TypeError("Estas sequencias não são strings.")
 
-    def __str__(self):
+    def print_trie(self):
         '''
         "Imprime" a árvore
         Returns:
@@ -75,3 +75,7 @@ class Sufix_trie:
                 sol.append(i)
         sol = [int(i) for i in sol]
         return sol
+    
+x = Sufix_trie("TACTA")
+x.print_trie()
+print(x.matches("TA"))
