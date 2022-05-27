@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 
 def createMatZeros (nl, nc): # cria matriz de zeros nlxnc
+    '''
+    Cria matriz de zeros
+    Inputs:
+        :nl: número de linhas
+        :type nl: int
+        :nc: número de colunas
+        :type nc: int
+    Returns:
+        :return list: matriz de zeros
+        :rtype list: list
+    '''
     res = [ ] 
     for i in range(0, nl):
         res.append([0]*nc)
