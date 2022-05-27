@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-classe que encontra a posição em que o motif começa
-"""
-
 
 from MySeq import MySeq
 from MyMotifs import MyMotifs, printMat
@@ -10,6 +6,9 @@ import random
 
 
 class MotifFinding:
+    """
+    Classe que encontra a posição em que o motif começa
+    """
     
     def __init__(self, size = 8, seqs = None):
         self.motifSize = size #Indica qual é o tamanho dos motifs que vamos procurar; por definição, se não houver info acerca do tamanho usamos motifs de tamanho 8
@@ -19,22 +18,56 @@ class MotifFinding:
         else:
             self.seqs = [] #Se for None, self.seqs é uma lista vazia
                     
-    def __len__ (self): #Return do número de elementos da lista self.seqs
+    def __len__ (self):
+        '''
+        Retorna o número de elementos da lista self.seqs
+        '''
         return len(self.seqs)
     
-    def __getitem__(self, n): #Return da primeira sequência da lista
+    def __getitem__(self, n): Return da primeira sequência da lista
+        '''
+        Retorna a primeira sequência da lista
+        Inputs:
+            :n:
+        Returns:
+            :return str: a primeira sequência da lista
+            :rtype str: str
+            
+        '''
         return self.seqs[n]
     
     def seqSize (self, i): #Return do comprimento da sequência i da lista
+        '''
+        Retorna o comprimento da sequência i da lista
+        Inputs:
+            :i:
+        Returns:
+            :return 
+            :rtype 
+        '''
         return len(self.seqs[i])
     
-    def readFile(self, fic, t): #Lê um ficheiro que vai ser adicionado à lista self.seqs
+    def readFile(self, fic, t): 
+        '''
+        Lê um ficheiro que vai ser adicionado à lista self.seqs
+        Inputs:
+            :fic: Nome do ficheiro
+            :t: 
+        '''
         for s in open(fic, "r"):
             self.seqs.append(MySeq(s.strip().upper(),t))
         self.alphabet = self.seqs[0].alfabeto()
         
         
-    def createMotifFromIndexes(self, indexes): #Recebe uma lista de números composta pelos números das posições inciais dos motifs
+    def createMotifFromIndexes(self, indexes):
+        '''
+        Recebe uma lista de números composta pelos números das posições inciais dos motifs
+        Inputs:
+            :indexes:
+        Returns:
+            :return
+            :rtype
+        '''
         pseqs = []
         for i,ind in enumerate(indexes): #Faz uma contagem de elementos
             pseqs.append( MySeq(self.seqs[i][ind:(ind+self.motifSize)], self.seqs[i].tipo) )
@@ -58,7 +91,15 @@ class MotifFinding:
             score += maxcol #o score passa a ser o valor máximo da coluna
         return score #Dá return ao score máximo
    
-    def scoreMult(self, s):  #Semelhante à da cima mas em vez de contagem, usa probabilidades e usa a multiplicação
+    def scoreMult(self, s):
+        '''
+        Semelhante à de cima mas em vez de contagem, usa probabilidades e usa a multiplicação
+        Inputs:
+            :s:
+        Returns:
+            :return int: score máximo
+            :rtype int: int
+        '''
         score = 1.0
         motif = self.createMotifFromIndexes(s)
         motif.createPWM() #Matriz de probabilidades
@@ -105,7 +146,15 @@ class MotifFinding:
      
     # BRANCH AND BOUND     
      
-    def nextVertex (self, s): #Procura entre os vértices
+    def nextVertex (self, s):
+        '''
+        Procura entre os vértices
+        Inputs:
+            :s:
+        Returns:
+            :return
+            :rtype
+        '''
         res =  []
         if len(s) < len(self.seqs): # internal node -> down one level
             for i in range(len(s)):  #Procurar na sequência s um i
@@ -124,7 +173,12 @@ class MotifFinding:
     
     def bypass (self, s):
         '''
-          Verifica se já chegou ou não ao final de uma sequência
+        Verifica se já chegou ou não ao final de uma sequência
+        Inputs:
+            :s:
+        Returns:
+            :return
+            :rtype
         '''
         res =  []
         pos = len(s) -1
@@ -136,7 +190,13 @@ class MotifFinding:
             res.append(s[pos]+1)
         return res
         
-    def branchAndBound (self): #Só verifica quando chegamos ao final de uma das sequências
+    def branchAndBound (self):
+        '''
+        Só verifica quando chegamos ao final de uma das sequências
+        Returns:
+            :return
+            :rtype
+        '''
         melhorScore = -1
         melhorMotif = None
         size = len(self.seqs)
@@ -159,9 +219,12 @@ class MotifFinding:
   
     def heuristicConsensus(self):
         #É mais rápido mas não é o ideal porque as duas primeiras sequências não garantem a conservação das sequências
-        """
+        '''
         Procura as posições para o motif nas duas primeiras sequências
-        """
+        Returns:
+            :return
+            :rtype
+        '''
         
         seqs_atuais = [self.seqs[0], self.seqs[1]]
         melhorScore = -1
