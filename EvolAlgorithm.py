@@ -21,7 +21,7 @@ class EvolAlgorithm:
         '''
         Avalia o fitness de cada indivíduo da população
         Inputs:
-            :indivs:
+        
         '''
         for i in range(len(indivs)):
             ind = indivs[i]
