@@ -17,7 +17,15 @@ class Popul:
             # gera aleatoriamente toda a população
             self.initRandomPop()
 
-    def getIndiv(self, index): #Vai bsucar o indivíduo x
+    def getIndiv(self, index):
+        '''
+        Vai bsucar o indivíduo x
+        Inputs:
+            :index:
+        Returns:
+            :return
+            :rtype
+        '''
         return self.indivs[index]
 
     def initRandomPop(self):
@@ -32,6 +40,11 @@ class Popul:
     def getFitnesses(self, indivs=None): 
         '''
         Vai buscar todos os fitness (valores de aptidão) dos indivíduos
+        Inputs:
+            :indivs:
+        Returns:
+            :return
+            :rtype
         '''
         fitnesses = [] #Lista de fitness
         if not indivs: #Se não forem inseridos os indivíduos
@@ -57,6 +70,11 @@ class Popul:
     def selection(self, n, indivs=None): 
         '''
         Mecanismo de seleção para reprodução
+        Inputs:
+            :indivs:
+        Returns:
+            :return
+            :rtype
         '''
         res = []
         fitnesses = list(self.linscaling(self.getFitnesses(indivs)))
