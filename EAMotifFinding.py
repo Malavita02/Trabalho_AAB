@@ -24,35 +24,24 @@ class MotifFinding:
         '''
         return len(self.seqs)
     
-    def __getitem__(self, n): Return da primeira sequência da lista
+    def __getitem__(self, n):
         '''
         Retorna a primeira sequência da lista
-        Inputs:
-            :n:
-        Returns:
-            :return str: a primeira sequência da lista
-            :rtype str: str
             
         '''
         return self.seqs[n]
     
-    def seqSize (self, i): #Return do comprimento da sequência i da lista
+    def seqSize (self, i):
         '''
         Retorna o comprimento da sequência i da lista
-        Inputs:
-            :i:
-        Returns:
-            :return 
-            :rtype 
+
         '''
         return len(self.seqs[i])
     
     def readFile(self, fic, t): 
         '''
         Lê um ficheiro que vai ser adicionado à lista self.seqs
-        Inputs:
-            :fic: Nome do ficheiro
-            :t: 
+
         '''
         for s in open(fic, "r"):
             self.seqs.append(MySeq(s.strip().upper(),t))
@@ -62,11 +51,7 @@ class MotifFinding:
     def createMotifFromIndexes(self, indexes):
         '''
         Recebe uma lista de números composta pelos números das posições inciais dos motifs
-        Inputs:
-            :indexes:
-        Returns:
-            :return
-            :rtype
+   
         '''
         pseqs = []
         for i,ind in enumerate(indexes): #Faz uma contagem de elementos
@@ -94,11 +79,7 @@ class MotifFinding:
     def scoreMult(self, s):
         '''
         Semelhante à de cima mas em vez de contagem, usa probabilidades e usa a multiplicação
-        Inputs:
-            :s:
-        Returns:
-            :return int: score máximo
-            :rtype int: int
+ 
         '''
         score = 1.0
         motif = self.createMotifFromIndexes(s)
@@ -174,11 +155,7 @@ class MotifFinding:
     def bypass (self, s):
         '''
         Verifica se já chegou ou não ao final de uma sequência
-        Inputs:
-            :s:
-        Returns:
-            :return
-            :rtype
+ 
         '''
         res =  []
         pos = len(s) -1
@@ -193,9 +170,7 @@ class MotifFinding:
     def branchAndBound (self):
         '''
         Só verifica quando chegamos ao final de uma das sequências
-        Returns:
-            :return
-            :rtype
+
         '''
         melhorScore = -1
         melhorMotif = None
@@ -221,9 +196,7 @@ class MotifFinding:
         #É mais rápido mas não é o ideal porque as duas primeiras sequências não garantem a conservação das sequências
         '''
         Procura as posições para o motif nas duas primeiras sequências
-        Returns:
-            :return
-            :rtype
+ 
         '''
         
         seqs_atuais = [self.seqs[0], self.seqs[1]]
