@@ -16,8 +16,13 @@ class EvolAlgorithm:
     def initPopul(self, indsize):
         self.popul = Popul(self.popsize, indsize)
 
-    # avalia o fitness de cada indivíduo da população
+    
     def evaluate(self, indivs):
+        '''
+        Avalia o fitness de cada indivíduo da população
+        Inputs:
+            :indivs:
+        '''
         for i in range(len(indivs)):
             ind = indivs[i]
             fit = 0.0
