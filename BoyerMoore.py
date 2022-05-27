@@ -77,7 +77,7 @@ class BoyerMoore:
                 :type text: string
             Returns:
                 :return list: Lista com os indices onde o padrão foi reconhecido
-                :rtype list: list
+                :type list: list
             '''
         res = []
         i = 0
