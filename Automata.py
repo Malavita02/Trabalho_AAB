@@ -19,6 +19,9 @@ class Automata:
         self.check_pattern_alphabet()
 
     def check_pattern_alphabet(self):
+        '''
+        Verifica se o padrão e o alfabeto são strings
+        '''
         if type(self.pattern) != str:
             raise TypeError("Esse padrão não é uma string.")
         if type(self.alphabet) != str:
