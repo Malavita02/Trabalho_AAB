@@ -6,14 +6,14 @@ from MyGraph import MyGraph
 class MetabolicNetwork(MyGraph):
     '''
     Classe que representa as redes metabólicas
+    Inputs:
+         :network_type: Tipo de rede metabólica
+         :split_rev: Se a reação for reversível retorna true
     '''
 
     def __init__(self, network_type="metabolite-reaction", split_rev=False):
         '''
         Armazena as variáveis globais da classe
-        Inputs:
-            :network_type: Tipo de rede metabólica
-            :split_rev: Se a reação for reversível retorna true
         '''
         self.check_type_error_network_type(network_type)
         MyGraph.__init__(self, {})
