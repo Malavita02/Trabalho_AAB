@@ -60,6 +60,8 @@ class Indiv:
     def initRandom(self, size):
         '''
         Gera indivíduos de forma aleatória
+        Inputs:
+            :size:
         '''
         self.genes = []
         for _ in range(size): #Size é o número de indivíduos (população) -> a nossa solução
@@ -85,6 +87,11 @@ class Indiv:
     def one_pt_crossover(self, indiv2):
         '''
         Construção de um novo indivíduo
+        Inputs:
+            :indiv2:
+        Returns:
+            :return
+            :rtype
         '''
         offsp1 = []  #Descendente 1
         offsp2 = [] #Descendente 2
