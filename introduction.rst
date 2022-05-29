@@ -9,10 +9,11 @@ Sumário:
 3. Árvore com os padrões;
 4. Transformações de Burrows-Wheeler;
 5. Procura de motifs;
-6. Grafos;
-7. Redes Biológicas;
-8. Grafos- assembly e sequenciação de genomas - P1;
-9. Grafos- assembly e sequenciação de genomas - P2;
+6. Algoritmos Evolucionários
+7. Grafos;
+8. Redes Biológicas;
+9. Grafos- assembly e sequenciação de genomas - P1;
+10. Grafos- assembly e sequenciação de genomas - P2;
 
 
 Autores:
